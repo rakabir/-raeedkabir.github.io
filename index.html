@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raeed Kabir — Researcher · Economist · Pre-Med</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ───────────────────────────────
+       Design Tokens
+    ─────────────────────────────── */
+    :root {
+      --bg:         #0d1117;
+      --bg-2:       #161b22;
+      --bg-3:       #1c2128;
+      --border:     #30363d;
+      --accent:     #58a6ff;
+      --accent-dim: #1f3a5f;
+      --text:       #e6edf3;
+      --text-muted: #8b949e;
+      --text-dim:   #6e7681;
+      --green:      #3fb950;
+      --purple:     #bc8cff;
+      --radius:     12px;
+      --radius-sm:  8px;
+      --max-w:      1100px;
+      --transition: 0.25s ease;
+    }
+
+    /* ───────────────────────────────
+       Reset & Base
+    ─────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; transition: opacity var(--transition); }
+    a:hover { opacity: 0.8; }
+    img { display: block; max-width: 100%; }
+
+    /* ───────────────────────────────
+       Layout helpers
+    ─────────────────────────────── */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+    section { padding: 96px 0; }
+    section:nth-child(even) { background: var(--bg-2); }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin-bottom: 56px;
+    }
+
+    /* Fade-in animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ───────────────────────────────
+       Navigation
+    ─────────────────────────────── */
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(13, 17, 23, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--transition);
+    }
+    #navbar.scrolled { border-color: var(--border); }
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--text); opacity: 1; }
+
+    /* Mobile hamburger */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text-muted);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    @media (max-width: 680px) {
+      .nav-toggle { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0; right: 0;
+        background: var(--bg-2);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        gap: 0;
+        padding: 8px 0;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li a { display: block; padding: 12px 24px; }
+    }
+
+    /* ───────────────────────────────
+       Hero
+    ─────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 80px 0 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Subtle grid backdrop */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.25;
+      pointer-events: none;
+    }
+    /* Radial glow */
+    #hero::after {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: -200px;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(88, 166, 255, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(88, 166, 255, 0.25);
+      border-radius: 99px;
+      padding: 5px 14px;
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .hero-name {
+      font-size: clamp(44px, 7vw, 80px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .hero-name .gradient {
+      background: linear-gradient(135deg, #58a6ff 0%, #bc8cff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-tagline {
+      font-size: clamp(18px, 2.5vw, 24px);
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .hero-institution {
+      font-size: 15px;
+      color: var(--text-dim);
+      margin-bottom: 48px;
+    }
+    .hero-institution strong { color: var(--text-muted); }
+    .hero-ctas {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #0d1117;
+      border-color: var(--accent);
+    }
+    .btn-primary:hover { background: #79b8ff; border-color: #79b8ff; opacity: 1; }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); opacity: 1; }
+
+    /* ───────────────────────────────
+       About
+    ─────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } }
+    .about-photo-wrap {
+      position: relative;
+    }
+    .about-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: var(--radius);
+      object-fit: cover;
+      border: 1px solid var(--border);
+      background: var(--bg-3);
+    }
+    /* Placeholder shown when image is missing */
+    .photo-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: var(--radius);
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--text-dim);
+      font-size: 13px;
+    }
+    .photo-placeholder svg { opacity: 0.4; }
+    .about-photo-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px solid var(--accent);
+      border-radius: var(--radius);
+      opacity: 0.2;
+      pointer-events: none;
+      transform: translate(8px, 8px);
+    }
+    .about-bio p { font-size: 17px; color: var(--text-muted); margin-bottom: 18px; }
+    .about-bio p:last-of-type { margin-bottom: 32px; }
+    .about-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .badge {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 5px 12px;
+      border-radius: 99px;
+      border: 1px solid;
+    }
+    .badge-blue  { color: var(--accent);  border-color: rgba(88,166,255,0.3);  background: rgba(88,166,255,0.08);  }
+    .badge-green { color: var(--green);   border-color: rgba(63,185,80,0.3);   background: rgba(63,185,80,0.08);   }
+    .badge-purple{ color: var(--purple);  border-color: rgba(188,140,255,0.3); background: rgba(188,140,255,0.08); }
+    .badge-gold  { color: #e3b341;        border-color: rgba(227,179,65,0.3);  background: rgba(227,179,65,0.08);  }
+
+    /* ───────────────────────────────
+       Research Interests
+    ─────────────────────────────── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+    .card-icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+    .card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .card p { font-size: 14px; color: var(--text-muted); }
+
+    /* ───────────────────────────────
+       Publications
+    ─────────────────────────────── */
+    .pub-group { margin-bottom: 48px; }
+    .pub-group-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .pub-item {
+      display: flex;
+      gap: 20px;
+      padding: 24px;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 14px;
+      transition: border-color var(--transition);
+    }
+    .pub-item:hover { border-color: var(--accent); }
+    .pub-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent-dim);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+    .pub-num-wp {
+      background: rgba(188,140,255,0.15);
+      color: var(--purple);
+    }
+    .pub-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .pub-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .pub-journal {
+      font-size: 13px;
+      color: var(--accent);
+      margin-top: 6px;
+      font-style: italic;
+    }
+    .pub-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-top: 8px;
+    }
+    .pub-tag-submitted { background: rgba(227,179,65,0.15); color: #e3b341; }
+    .pub-tag-wip       { background: rgba(63,185,80,0.12);  color: var(--green); }
+
+    /* ───────────────────────────────
+       Experience Timeline
+    ─────────────────────────────── */
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent) 0%, transparent 100%);
+      border-radius: 2px;
+    }
+    .tl-item {
+      position: relative;
+      padding-bottom: 48px;
+    }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-dot {
+      position: absolute;
+      left: -38px;
+      top: 4px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      background: var(--bg);
+      z-index: 1;
+    }
+    .tl-date {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .tl-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .tl-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .tl-body { font-size: 15px; color: var(--text-muted); }
+
+    /* ───────────────────────────────
+       Education
+    ─────────────────────────────── */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .edu-card {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .edu-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .edu-card.current { border-color: rgba(88,166,255,0.35); }
+    .edu-year {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .edu-degree {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .edu-field {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .edu-institution {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-dim);
+    }
+
+    /* ───────────────────────────────
+       Awards
+    ─────────────────────────────── */
+    .awards-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .award-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .award-pill:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .award-icon { font-size: 18px; line-height: 1; }
+
+    /* ───────────────────────────────
+       Contact
+    ─────────────────────────────── */
+    #contact { text-align: center; }
+    #contact .section-sub { margin: 0 auto 40px; }
+    .contact-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--accent);
+      padding: 16px 32px;
+      border: 1px solid rgba(88,166,255,0.3);
+      border-radius: var(--radius);
+      background: rgba(88,166,255,0.05);
+      transition: all var(--transition);
+    }
+    .contact-email:hover {
+      background: rgba(88,166,255,0.12);
+      border-color: var(--accent);
+      opacity: 1;
+    }
+
+    /* ───────────────────────────────
+       Footer
+    ─────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    /* ───────────────────────────────
+       Scroll-progress bar
+    ─────────────────────────────── */
+    #progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--purple));
+      z-index: 200;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Scroll progress bar -->
+<div id="progress"></div>
+
+<!-- ─── Navigation ─── -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <span class="nav-logo">Raeed <span>Kabir</span></span>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ─── Hero ─── -->
+<section id="hero">
+  <div class="container hero-content fade-in">
+    <div class="hero-eyebrow">University of Alabama · Class of 2026</div>
+    <h1 class="hero-name">
+      <span class="gradient">Raeed Kabir</span>
+    </h1>
+    <p class="hero-tagline">Researcher &nbsp;·&nbsp; Economist &nbsp;·&nbsp; Pre-Med</p>
+    <p class="hero-institution">
+      <strong>B.S. Mathematics &amp; Economics</strong> &nbsp;|&nbsp; M.A. Mathematics (2027) &nbsp;|&nbsp; PhD Quantitative Economics (2028)
+    </p>
+    <div class="hero-ctas">
+      <a href="mailto:raeed.kabir@gmail.com" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Get in Touch
+      </a>
+      <a href="#publications" class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        View Publications
+      </a>
+      <a href="#research" class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Research Interests
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── About ─── -->
+<section id="about">
+  <div class="container fade-in">
+    <p class="section-label">About Me</p>
+    <h2 class="section-title">Driven by empathy,<br>grounded in evidence.</h2>
+    <div class="about-grid">
+      <!-- Photo -->
+      <div class="about-photo-wrap">
+        <img
+          src="images/profile.jpg"
+          alt="Raeed Kabir"
+          class="about-photo"
+          id="profileImg"
+          onerror="this.style.display='none'; document.getElementById('photoPlaceholder').style.display='flex';"
+        />
+        <div class="photo-placeholder" id="photoPlaceholder" style="display:none;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <span>Add profile.jpg to images/</span>
+        </div>
+      </div>
+      <!-- Bio -->
+      <div class="about-bio">
+        <p>
+          I'm a 4th-year undergraduate at the <strong>University of Alabama</strong> pursuing degrees in Mathematics
+          and Economics on a pre-med track. My research bridges quantitative methods with real-world problems in
+          health, the environment, and human behavior—with the conviction that rigorous evidence is the most
+          powerful lever for improving lives.
+        </p>
+        <p>
+          I've had the privilege of conducting research at <strong>Harvard University</strong> and the
+          <strong>University of Chicago</strong>, collaborating with faculty on randomized experiments, causal
+          inference, and AI-driven health diagnostics. I'm equally comfortable writing economic theory and sitting
+          in a clinical research setting.
+        </p>
+        <p>
+          After completing my undergraduate degrees, I'll pursue an M.A. in Mathematics (2027) and a PhD in
+          Quantitative Economics (2028), building the technical foundations to ask—and answer—harder questions.
+        </p>
+        <div class="about-badges">
+          <span class="badge badge-blue">Behavioral Economics</span>
+          <span class="badge badge-green">Environmental Health</span>
+          <span class="badge badge-purple">AI in Healthcare</span>
+          <span class="badge badge-gold">Public Economics</span>
+          <span class="badge badge-blue">Causal Inference</span>
+          <span class="badge badge-green">Pre-Med</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Research Interests ─── -->
+<section id="research">
+  <div class="container fade-in">
+    <p class="section-label">Research Interests</p>
+    <h2 class="section-title">Questions I'm asking.</h2>
+    <p class="section-sub">My work sits at the intersection of economics, statistics, and medicine—using rigorous methods to understand human behavior and its consequences for health and welfare.</p>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon">🧪</div>
+        <h3>Behavioral &amp; Experimental Economics</h3>
+        <p>Randomized experiments and field studies examining how individuals make decisions under uncertainty, including charitable giving and incentive design.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌱</div>
+        <h3>Environmental Health Economics</h3>
+        <p>Causal estimation of how environmental exposures—pollution, climate—translate into measurable health and economic outcomes across populations.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🤖</div>
+        <h3>AI in Healthcare</h3>
+        <p>Designing and evaluating expert AI systems for clinical decision support, disease prognosis, and diagnostics in resource-limited settings.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3>Public &amp; Health Economics</h3>
+        <p>Empirical analysis of policy interventions affecting public health, with attention to heterogeneous treatment effects and equity implications.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Publications ─── -->
+<section id="publications">
+  <div class="container fade-in">
+    <p class="section-label">Publications</p>
+    <h2 class="section-title">Research output.</h2>
+    <p class="section-sub">Peer-reviewed publications and working papers across economics, medicine, and artificial intelligence.</p>
+
+    <!-- Published -->
+    <div class="pub-group">
+      <div class="pub-group-title">Published</div>
+
+      <div class="pub-item">
+        <div class="pub-num">1</div>
+        <div>
+          <div class="pub-title">In Pursuit of an Expert Artificial Intelligence System for Health-Related Issues</div>
+          <div class="pub-meta">Kabir, Azad, <strong>Raeed Kabir</strong>, Jebun Nahar. 2024.</div>
+          <div class="pub-journal">Journal of AI and Soft Computing Techniques, 1: 1–14.</div>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-num">2</div>
+        <div>
+          <div class="pub-title">D-Dimer Trends Predict COVID-19 Patient's Prognosis: Systematic Review and Meta-Analysis</div>
+          <div class="pub-meta"><strong>Kabir, Raeed</strong>, et al. 2023.</div>
+          <div class="pub-journal">Open Medicine, 18(1).</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Working Papers -->
+    <div class="pub-group">
+      <div class="pub-group-title">Working Papers &amp; Submitted</div>
+
+      <div class="pub-item">
+        <div class="pub-num pub-num-wp">3</div>
+        <div>
+          <div class="pub-title">Charitable Giving Under Uncertainty</div>
+          <div class="pub-meta">With Benjamin Price &amp; Tigran Melkonyan.</div>
+          <span class="pub-tag pub-tag-wip">Working Paper</span>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-num pub-num-wp">4</div>
+        <div>
+          <div class="pub-title">Environmental Exposure and Health Outcomes</div>
+          <div class="pub-meta">With Benjamin Price &amp; Emmanuel Tsyawo.</div>
+          <span class="pub-tag pub-tag-wip">Working Paper</span>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-num pub-num-wp">5</div>
+        <div>
+          <div class="pub-title">Research with Piper Larkin &amp; Reshmaan Hussam</div>
+          <div class="pub-meta">Collaboration with Piper Larkin, Reshmaan Hussam, and John List.</div>
+          <span class="pub-tag pub-tag-wip">In Progress</span>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-num pub-num-wp">6</div>
+        <div>
+          <div class="pub-title">AI in Health: Expert Systems for Clinical Decision-Making</div>
+          <div class="pub-meta">Submitted manuscript.</div>
+          <span class="pub-tag pub-tag-submitted">Submitted</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Experience ─── -->
+<section id="experience">
+  <div class="container fade-in">
+    <p class="section-label">Research Experience</p>
+    <h2 class="section-title">Where I've worked.</h2>
+    <p class="section-sub">Research positions at leading universities, collaborating with economists, physicians, and data scientists.</p>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Summer 2024</div>
+        <div class="tl-title">Research Assistant</div>
+        <div class="tl-subtitle">University of Chicago — Department of Economics</div>
+        <p class="tl-body">Collaborated on causal inference and experimental economics projects. Contributed to working papers on environmental health and charitable behavior under uncertainty with faculty mentors.</p>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Summer 2023</div>
+        <div class="tl-title">Research Assistant</div>
+        <div class="tl-subtitle">Harvard University</div>
+        <p class="tl-body">Worked with Reshmaan Hussam and collaborators on field experiments and behavioral interventions. Gained hands-on experience in randomized controlled trial design and analysis.</p>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Summer 2022</div>
+        <div class="tl-title">Research Assistant</div>
+        <div class="tl-subtitle">University of Chicago</div>
+        <p class="tl-body">First independent research experience. Contributed to AI and health research leading to a published manuscript on expert AI systems for clinical applications.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Education ─── -->
+<section id="education">
+  <div class="container fade-in">
+    <p class="section-label">Education</p>
+    <h2 class="section-title">Academic path.</h2>
+    <p class="section-sub">Building the mathematical and economic foundations for rigorous, impactful research.</p>
+
+    <div class="edu-grid">
+      <div class="edu-card current">
+        <div class="edu-year">2022 – 2026 &nbsp;·&nbsp; <span style="color:var(--green);">Current</span></div>
+        <div class="edu-degree">B.S. Mathematics &amp; B.S. Economics</div>
+        <div class="edu-field">Pre-Med Track · Double Major</div>
+        <div class="edu-institution">University of Alabama</div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-year">Expected 2027</div>
+        <div class="edu-degree">M.A. Mathematics</div>
+        <div class="edu-field">Graduate Study</div>
+        <div class="edu-institution">University of Alabama</div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-year">Expected 2028</div>
+        <div class="edu-degree">PhD Quantitative Economics</div>
+        <div class="edu-field">Doctoral Study</div>
+        <div class="edu-institution">TBD</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Awards ─── -->
+<section id="awards">
+  <div class="container fade-in">
+    <p class="section-label">Honors &amp; Awards</p>
+    <h2 class="section-title">Recognition.</h2>
+    <p class="section-sub">Scholarships and fellowships awarded for academic excellence and research potential.</p>
+
+    <div class="awards-row">
+      <div class="award-pill">
+        <span class="award-icon">🌊</span>
+        <span>Hollings Scholar · NOAA</span>
+      </div>
+      <div class="award-pill">
+        <span class="award-icon">🔬</span>
+        <span>Randall Research Scholar</span>
+      </div>
+      <div class="award-pill">
+        <span class="award-icon">🏅</span>
+        <span>National Merit Scholar</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Contact ─── -->
+<section id="contact">
+  <div class="container fade-in">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Let's connect.</h2>
+    <p class="section-sub">Interested in collaboration, research opportunities, or just want to say hello? I'd love to hear from you.</p>
+    <a href="mailto:raeed.kabir@gmail.com" class="contact-email">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      raeed.kabir@gmail.com
+    </a>
+  </div>
+</section>
+
+<!-- ─── Footer ─── -->
+<footer>
+  <div class="container">
+    <p>© 2026 Raeed Kabir &nbsp;·&nbsp; University of Alabama &nbsp;·&nbsp; Built for GitHub Pages</p>
+  </div>
+</footer>
+
+<!-- ─── Scripts ─── -->
+<script>
+  // ── Scroll progress bar ──
+  const progressBar = document.getElementById('progress');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = (scrolled / total * 100) + '%';
+  }, { passive: true });
+
+  // ── Navbar scroll effect ──
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 10);
+  }, { passive: true });
+
+  // ── Mobile nav toggle ──
+  document.getElementById('navToggle').addEventListener('click', () => {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+
+  // ── Fade-in on scroll ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // ── Stagger card animations ──
+  document.querySelectorAll('.cards-grid .card, .edu-grid .edu-card, .awards-row .award-pill').forEach((el, i) => {
+    el.style.transitionDelay = (i * 80) + 'ms';
+    el.classList.add('fade-in');
+    observer.observe(el);
+  });
+
+  // ── Show photo placeholder if image fails ──
+  const img = document.getElementById('profileImg');
+  if (img && img.complete && img.naturalWidth === 0) {
+    img.style.display = 'none';
+    document.getElementById('photoPlaceholder').style.display = 'flex';
+  }
+</script>
+
+</body>
+</html>
