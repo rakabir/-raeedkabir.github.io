@@ -446,6 +446,13 @@
     }
     .pub-tag-submitted { background: rgba(227,179,65,0.15); color: #e3b341; }
     .pub-tag-wip       { background: rgba(63,185,80,0.12);  color: var(--green); }
+    .pub-presented {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 6px;
+      font-style: italic;
+    }
+    .pub-presented strong { color: var(--text-muted); font-style: normal; }
 
     /* ───────────────────────────────
        Experience Timeline
@@ -746,73 +753,127 @@
 <!-- ─── Publications ─── -->
 <section id="publications">
   <div class="container fade-in">
-    <p class="section-label">Publications</p>
+    <p class="section-label">Publications &amp; Working Papers</p>
     <h2 class="section-title">Research output.</h2>
     <p class="section-sub">Peer-reviewed publications and working papers across economics, medicine, and artificial intelligence.</p>
 
-    <!-- Published -->
+    <!-- Charitable Giving -->
     <div class="pub-group">
-      <div class="pub-group-title">Published</div>
+      <div class="pub-group-title">Charitable Giving in the Face of Uncertainty</div>
 
       <div class="pub-item">
-        <div class="pub-num">1</div>
+        <div class="pub-num pub-num-wp">1</div>
         <div>
-          <div class="pub-title">In Pursuit of an Expert Artificial Intelligence System for Health-Related Issues</div>
-          <div class="pub-meta">Kabir, Azad, <strong>Raeed Kabir</strong>, Jebun Nahar. 2024.</div>
-          <div class="pub-journal">Journal of AI and Soft Computing Techniques, 1: 1–14.</div>
-        </div>
-      </div>
-
-      <div class="pub-item">
-        <div class="pub-num">2</div>
-        <div>
-          <div class="pub-title">D-Dimer Trends Predict COVID-19 Patient's Prognosis: Systematic Review and Meta-Analysis</div>
-          <div class="pub-meta"><strong>Kabir, Raeed</strong>, et al. 2023.</div>
-          <div class="pub-journal">Open Medicine, 18(1).</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Working Papers -->
-    <div class="pub-group">
-      <div class="pub-group-title">Working Papers &amp; Submitted</div>
-
-      <div class="pub-item">
-        <div class="pub-num pub-num-wp">3</div>
-        <div>
-          <div class="pub-title">Charitable Giving Under Uncertainty</div>
-          <div class="pub-meta">With Benjamin Price &amp; Tigran Melkonyan.</div>
+          <div class="pub-meta">Working paper with Michael Price and Tigran Melkonyan. <a href="#" style="color:var(--accent);">View Randall Research talk ↗</a></div>
           <span class="pub-tag pub-tag-wip">Working Paper</span>
+          <div class="pub-presented"><strong>Presented at:</strong> Advances with Field Experiments, Harvard Economics Pre-Doc Seminar, University of Alabama Brown Bag, University of Alabama Capstone Scholars Day.</div>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-num pub-num-wp">2</div>
+        <div>
+          <div class="pub-meta">Experimental paper in progress with Michael Price and Tigran Melkonyan.</div>
+          <span class="pub-tag pub-tag-wip">In Progress</span>
+          <div class="pub-presented"><strong>Presented at:</strong> UChicago Brown Bag, Yale Undergraduate Research Conference.</div>
         </div>
       </div>
 
       <div class="pub-item">
         <div class="pub-num pub-num-wp">4</div>
         <div>
-          <div class="pub-title">Environmental Exposure and Health Outcomes</div>
-          <div class="pub-meta">With Benjamin Price &amp; Emmanuel Tsyawo.</div>
-          <span class="pub-tag pub-tag-wip">Working Paper</span>
-        </div>
-      </div>
-
-      <div class="pub-item">
-        <div class="pub-num pub-num-wp">5</div>
-        <div>
-          <div class="pub-title">Research with Piper Larkin &amp; Reshmaan Hussam</div>
-          <div class="pub-meta">Collaboration with Piper Larkin, Reshmaan Hussam, and John List.</div>
+          <div class="pub-meta">Work in progress with Michael Price, Tigran Melkonyan, and Faisal Kattan.</div>
           <span class="pub-tag pub-tag-wip">In Progress</span>
         </div>
       </div>
+    </div>
+
+    <!-- Environmental Exposure -->
+    <div class="pub-group">
+      <div class="pub-group-title">Environmental Exposure on Health</div>
 
       <div class="pub-item">
-        <div class="pub-num pub-num-wp">6</div>
+        <div class="pub-num pub-num-wp">1</div>
         <div>
-          <div class="pub-title">AI in Health: Expert Systems for Clinical Decision-Making</div>
-          <div class="pub-meta">Submitted manuscript.</div>
+          <div class="pub-meta">Work in progress with Michael Price and Emmanuel Tsyawo.</div>
+          <span class="pub-tag pub-tag-wip">In Progress</span>
+          <div class="pub-presented"><strong>Presented at:</strong> NOAA Symposium.</div>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-num pub-num-wp">2</div>
+        <div>
+          <div class="pub-meta">Several works in progress with Piper Larkin.</div>
+          <span class="pub-tag pub-tag-wip">In Progress</span>
+          <div class="pub-presented"><strong>Presented at:</strong> REGARDS Built Environment Working Group Meeting.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Public Economics -->
+    <div class="pub-group">
+      <div class="pub-group-title">Public Economics</div>
+
+      <div class="pub-item">
+        <div class="pub-num pub-num-wp">1</div>
+        <div>
+          <div class="pub-meta">Work in progress with Reshmaan Hussam.</div>
+          <span class="pub-tag pub-tag-wip">In Progress</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Experimental Economics -->
+    <div class="pub-group">
+      <div class="pub-group-title">Experimental Economics</div>
+
+      <div class="pub-item">
+        <div class="pub-num pub-num-wp">1</div>
+        <div>
+          <div class="pub-meta">Work in progress with John List.</div>
+          <span class="pub-tag pub-tag-wip">In Progress</span>
+          <div class="pub-presented"><strong>Presented at:</strong> Advances with Field Experiments, University of Alabama Brown Bag.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI in Health -->
+    <div class="pub-group">
+      <div class="pub-group-title">AI in Health</div>
+
+      <div class="pub-item">
+        <div class="pub-num">1</div>
+        <div>
+          <div class="pub-title">In Pursuit of an Expert Artificial Intelligence System: Reproducing Human Physicians Diagnostic Reasoning and Triage Decision Making</div>
+          <div class="pub-meta">Kabir, Azad, <strong>Raeed Kabir</strong>, Jebun Nahar. 2024.</div>
+          <div class="pub-journal">Journal of Artificial Intelligence and Soft Computing Techniques, 1: 1–14.</div>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-num pub-num-wp">2</div>
+        <div>
+          <div class="pub-meta">Submitted paper with Michael Williams, Jay Sanders, Tariq Nakhooda, and Mahmoud Zaher.</div>
           <span class="pub-tag pub-tag-submitted">Submitted</span>
         </div>
       </div>
     </div>
+
+    <!-- Clinical Studies -->
+    <div class="pub-group">
+      <div class="pub-group-title">Clinical Studies</div>
+
+      <div class="pub-item">
+        <div class="pub-num">1</div>
+        <div>
+          <div class="pub-title">D-Dimer trends predict COVID-19 patient's prognosis: A retrospective chart review study</div>
+          <div class="pub-meta"><strong>Kabir, Raeed</strong>, Iyana Malik, Reena Chen, Jebun Nahar, Eagle Chen, Sheikh M. Hoq, and Azad Kabir. 2023.</div>
+          <div class="pub-journal">Open Medicine, 18(1).</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
