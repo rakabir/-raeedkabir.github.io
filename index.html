@@ -604,6 +604,74 @@
     }
 
     /* ───────────────────────────────
+       Conferences
+    ─────────────────────────────── */
+    .conf-table { width: 100%; border-collapse: collapse; }
+    .conf-table tr { border-bottom: 1px solid var(--border); transition: background var(--transition); }
+    .conf-table tr:last-child { border-bottom: none; }
+    .conf-table tr:hover { background: var(--bg-3); }
+    .conf-num {
+      width: 36px;
+      padding: 14px 0;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      vertical-align: top;
+      white-space: nowrap;
+    }
+    .conf-name {
+      padding: 14px 16px 14px 0;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .conf-type {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-left: 10px;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+    .conf-type-oral   { background: rgba(88,166,255,0.12); color: var(--accent); }
+    .conf-type-poster { background: rgba(188,140,255,0.12); color: var(--purple); }
+    .conf-date {
+      padding: 14px 0;
+      font-size: 13px;
+      color: var(--text-dim);
+      white-space: nowrap;
+      text-align: right;
+      vertical-align: top;
+    }
+
+    /* ───────────────────────────────
+       Awards table
+    ─────────────────────────────── */
+    .awards-table { width: 100%; border-collapse: collapse; }
+    .awards-table tr { border-bottom: 1px solid var(--border); transition: background var(--transition); }
+    .awards-table tr:last-child { border-bottom: none; }
+    .awards-table tr:hover { background: var(--bg-3); }
+    .award-name {
+      padding: 14px 16px 14px 0;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .award-note {
+      padding: 14px 0;
+      font-size: 13px;
+      color: var(--text-dim);
+      text-align: right;
+    }
+    .award-amount {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--green);
+      margin-left: 8px;
+    }
+
+    /* ───────────────────────────────
        Scroll-progress bar
     ─────────────────────────────── */
     #progress {
@@ -634,6 +702,8 @@
       <li><a href="#research">Research</a></li>
       <li><a href="#publications">Publications</a></li>
       <li><a href="#experience">Experience</a></li>
+      <li><a href="#conferences">Conferences</a></li>
+      <li><a href="#awards">Awards</a></li>
       <li><a href="#education">Education</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -880,33 +950,51 @@
 <!-- ─── Experience ─── -->
 <section id="experience">
   <div class="container fade-in">
-    <p class="section-label">Research Experience</p>
+    <p class="section-label">Work Experience</p>
     <h2 class="section-title">Where I've worked.</h2>
-    <p class="section-sub">Research positions at leading universities, collaborating with economists, physicians, and data scientists.</p>
+    <p class="section-sub">Research positions at leading universities and federal agencies.</p>
 
     <div class="timeline">
       <div class="tl-item">
         <div class="tl-dot"></div>
+        <div class="tl-date">08/2025 – Present</div>
+        <div class="tl-title">Research Intern — Low Earth Orbit Group</div>
+        <div class="tl-subtitle">National Oceanic and Atmospheric Administration · Greenbelt, MD</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">08/2022 – Present</div>
+        <div class="tl-title">Research Assistant to Prof. Michael K. Price</div>
+        <div class="tl-subtitle">University of Alabama, Culverhouse College of Business · Tuscaloosa, AL</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">08/2020 – Present</div>
+        <div class="tl-title">Research Assistant to Prof. Reshmaan Hussam</div>
+        <div class="tl-subtitle">Harvard Business School, BGIE Unit · Cambridge, MA</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
         <div class="tl-date">Summer 2024</div>
-        <div class="tl-title">Research Assistant</div>
-        <div class="tl-subtitle">University of Chicago — Department of Economics</div>
-        <p class="tl-body">Collaborated on causal inference and experimental economics projects. Contributed to working papers on environmental health and charitable behavior under uncertainty with faculty mentors.</p>
+        <div class="tl-title">Returning Research Assistant — Projects in Saudi Public Policy</div>
+        <div class="tl-subtitle">University of Chicago, Becker Friedman Institute · Chicago, IL</div>
       </div>
 
       <div class="tl-item">
         <div class="tl-dot"></div>
         <div class="tl-date">Summer 2023</div>
-        <div class="tl-title">Research Assistant</div>
-        <div class="tl-subtitle">Harvard University</div>
-        <p class="tl-body">Worked with Reshmaan Hussam and collaborators on field experiments and behavioral interventions. Gained hands-on experience in randomized controlled trial design and analysis.</p>
+        <div class="tl-title">Research Assistant to Prof. Benjamin Enke</div>
+        <div class="tl-subtitle">Harvard University · Cambridge, MA</div>
       </div>
 
       <div class="tl-item">
         <div class="tl-dot"></div>
         <div class="tl-date">Summer 2022</div>
-        <div class="tl-title">Research Assistant</div>
-        <div class="tl-subtitle">University of Chicago</div>
-        <p class="tl-body">First independent research experience. Contributed to AI and health research leading to a published manuscript on expert AI systems for clinical applications.</p>
+        <div class="tl-title">Research Assistant to Prof. John List</div>
+        <div class="tl-subtitle">University of Chicago, Becker Friedman Institute · Chicago, IL</div>
       </div>
     </div>
   </div>
@@ -944,27 +1032,152 @@
   </div>
 </section>
 
+<!-- ─── Conferences ─── -->
+<section id="conferences">
+  <div class="container fade-in">
+    <p class="section-label">Conference Activity &amp; Presentations</p>
+    <h2 class="section-title">Where I've presented.</h2>
+    <table class="conf-table">
+      <tr>
+        <td class="conf-num">13.</td>
+        <td class="conf-name">Advances with Field Experiments @ UChicago <span class="conf-type conf-type-oral">Oral</span></td>
+        <td class="conf-date">September 2025</td>
+      </tr>
+      <tr>
+        <td class="conf-num">12.</td>
+        <td class="conf-name">Brown Bag @ UA <span class="conf-type conf-type-oral">Oral</span></td>
+        <td class="conf-date">September 2025</td>
+      </tr>
+      <tr>
+        <td class="conf-num">11.</td>
+        <td class="conf-name">Brown Bag Lunch Talk @ UChicago <span class="conf-type conf-type-oral">Oral</span></td>
+        <td class="conf-date">August 2025</td>
+      </tr>
+      <tr>
+        <td class="conf-num">10.</td>
+        <td class="conf-name">NOAA Hollings Symposium Presentation <span class="conf-type conf-type-oral">Oral</span></td>
+        <td class="conf-date">July 2025</td>
+      </tr>
+      <tr>
+        <td class="conf-num">9.</td>
+        <td class="conf-name">Yale Undergraduate Research Conference <span class="conf-type conf-type-poster">3rd Place · Social Science Poster</span></td>
+        <td class="conf-date">April 2025</td>
+      </tr>
+      <tr>
+        <td class="conf-num">8.</td>
+        <td class="conf-name">UA Undergraduate Research and Creative Activities Conference <span class="conf-type conf-type-poster">Poster</span></td>
+        <td class="conf-date">April 2025</td>
+      </tr>
+      <tr>
+        <td class="conf-num">7.</td>
+        <td class="conf-name">Capstone Scholars Day Research Presenter <span class="conf-type conf-type-oral">Oral</span></td>
+        <td class="conf-date">January 2025</td>
+      </tr>
+      <tr>
+        <td class="conf-num">6.</td>
+        <td class="conf-name">UA Undergraduate Research and Creative Activities Conference <span class="conf-type conf-type-poster">Poster</span></td>
+        <td class="conf-date">March 2024</td>
+      </tr>
+      <tr>
+        <td class="conf-num">5.</td>
+        <td class="conf-name">Advances with Field Experiments @ UChicago <span class="conf-type conf-type-oral">Oral</span></td>
+        <td class="conf-date">September 2023</td>
+      </tr>
+      <tr>
+        <td class="conf-num">4.</td>
+        <td class="conf-name">Harvard Pre-Doctoral Student Research Seminar <span class="conf-type conf-type-oral">Oral</span></td>
+        <td class="conf-date">June 2023</td>
+      </tr>
+      <tr>
+        <td class="conf-num">3.</td>
+        <td class="conf-name">Stanford Research Conference <span class="conf-type conf-type-poster">Poster</span></td>
+        <td class="conf-date">April 2023</td>
+      </tr>
+      <tr>
+        <td class="conf-num">2.</td>
+        <td class="conf-name">UA Undergraduate Research and Creative Activities Conference <span class="conf-type conf-type-poster">Poster</span></td>
+        <td class="conf-date">April 2023</td>
+      </tr>
+      <tr>
+        <td class="conf-num">1.</td>
+        <td class="conf-name">Bengali Medical Association of North America <span class="conf-type conf-type-poster">1st Place · Poster</span></td>
+        <td class="conf-date">July 2022</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
 <!-- ─── Awards ─── -->
 <section id="awards">
   <div class="container fade-in">
-    <p class="section-label">Honors &amp; Awards</p>
+    <p class="section-label">Honors, Awards &amp; Funding</p>
     <h2 class="section-title">Recognition.</h2>
-    <p class="section-sub">Scholarships and fellowships awarded for academic excellence and research potential.</p>
-
-    <div class="awards-row">
-      <div class="award-pill">
-        <span class="award-icon">🌊</span>
-        <span>Hollings Scholar · NOAA</span>
-      </div>
-      <div class="award-pill">
-        <span class="award-icon">🔬</span>
-        <span>Randall Research Scholar</span>
-      </div>
-      <div class="award-pill">
-        <span class="award-icon">🏅</span>
-        <span>National Merit Scholar</span>
-      </div>
-    </div>
+    <table class="awards-table">
+      <tr>
+        <td class="award-name">Most Outstanding Junior</td>
+        <td class="award-note">1 junior student university-wide</td>
+      </tr>
+      <tr>
+        <td class="award-name">Bayham Family Endowed Scholarship</td>
+        <td class="award-note">1 RRS Student</td>
+      </tr>
+      <tr>
+        <td class="award-name">Randall Outstanding Undergraduate Research Award</td>
+        <td class="award-note">20 students</td>
+      </tr>
+      <tr>
+        <td class="award-name">Economics Faculty Award</td>
+        <td class="award-note">Exceptional Juniors in Economics</td>
+      </tr>
+      <tr>
+        <td class="award-name">Joseph Edward Braswell Scholarship in Mathematics</td>
+        <td class="award-note">1 student in Math Dept</td>
+      </tr>
+      <tr>
+        <td class="award-name">Ernest F. Hollings Undergraduate Scholarship</td>
+        <td class="award-note">120 undergraduates across the U.S.</td>
+      </tr>
+      <tr>
+        <td class="award-name">Thomas W. Palmer Math Award</td>
+        <td class="award-note">2 Upperclassmen</td>
+      </tr>
+      <tr>
+        <td class="award-name">Randall Research Scholars Program — Rising Star Award</td>
+        <td class="award-note">1 Freshman</td>
+      </tr>
+      <tr>
+        <td class="award-name">University of Alabama National Merit Finalist Scholarship</td>
+        <td class="award-note">Full-Ride<span class="award-amount">$288,990</span></td>
+      </tr>
+      <tr>
+        <td class="award-name">JSHS Momentum Grant Award <span style="color:var(--text-dim);font-weight:400;">· June 2021</span></td>
+        <td class="award-note"><span class="award-amount">$1,807</span></td>
+      </tr>
+      <tr>
+        <td class="award-name">ISEF 2021 — 4th in Behavioral and Social Science (International)</td>
+        <td class="award-note"><span class="award-amount">$500</span></td>
+      </tr>
+      <tr>
+        <td class="award-name">MathWorks Math Modeling Challenge 2021 — Honorable Mention</td>
+        <td class="award-note"><span class="award-amount">$250</span></td>
+      </tr>
+      <tr>
+        <td class="award-name">Mississippi School for Mathematics and Science 2022 — Outstanding Senior Award</td>
+        <td class="award-note"></td>
+      </tr>
+      <tr>
+        <td class="award-name">Mississippi School for Mathematics and Science 2022 — Hall of Fame</td>
+        <td class="award-note"></td>
+      </tr>
+      <tr>
+        <td class="award-name">Mississippi School for Mathematics and Science 2022 — Departmental Award in Biology</td>
+        <td class="award-note"></td>
+      </tr>
+      <tr>
+        <td class="award-name">Mississippi School for Mathematics and Science 2022 — Departmental Award in Mathematics</td>
+        <td class="award-note"></td>
+      </tr>
+    </table>
   </div>
 </section>
 
