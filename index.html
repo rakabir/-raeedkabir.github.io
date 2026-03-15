@@ -6,30 +6,53 @@
   <title>Raeed Kabir — Economist · Pre-Med</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     /* ───────────────────────────────
        Design Tokens
     ─────────────────────────────── */
     :root {
-      --bg:         #fafaf8;
-      --bg-2:       #f5f4f0;
-      --bg-3:       #f0efeb;
-      --border:     #e3e2de;
-      --accent:     #1a1918;
-      --accent-dim: #f0efeb;
-      --text:       #1a1918;
-      --text-muted: #5c5a57;
-      --text-dim:   #9b9895;
-      --green:      #2a7a3b;
-      --purple:     #5a3e8a;
-      --radius:     6px;
-      --radius-sm:  4px;
-      --max-w:      860px;
+      /* Base surfaces */
+      --bg:          #fafaf9;
+      --bg-2:        #f4f3ef;
+      --bg-3:        #eeedea;
+      --border:      #e2e0db;
+
+      /* Text */
+      --text:        #18171a;
+      --text-muted:  #57555c;
+      --text-dim:    #96949a;
+
+      /* Accent — blue */
+      --blue:        #2563eb;
+      --blue-light:  #eff6ff;
+      --blue-border: #bfdbfe;
+
+      /* Green */
+      --green:        #16a34a;
+      --green-light:  #f0fdf4;
+      --green-border: #bbf7d0;
+
+      /* Purple */
+      --purple:        #7c3aed;
+      --purple-light:  #f5f3ff;
+      --purple-border: #ddd6fe;
+
+      /* Amber */
+      --amber:        #d97706;
+      --amber-light:  #fffbeb;
+      --amber-border: #fde68a;
+
+      /* Crimson (Alabama) */
+      --crimson: #9e1b32;
+
+      /* Layout */
+      --radius:    8px;
+      --radius-sm: 5px;
+      --max-w:     860px;
       --transition: 0.2s ease;
     }
 
-  <style>
     /* ── Reset ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -52,10 +75,10 @@
 
     .section-label {
       font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
+      font-weight: 600;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--text-dim);
+      color: var(--blue);
       margin-bottom: 8px;
     }
     .section-title {
@@ -82,9 +105,9 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      background: rgba(250, 250, 248, 0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(250, 250, 249, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid transparent;
       transition: border-color var(--transition);
     }
@@ -98,8 +121,8 @@
       align-items: center;
       justify-content: space-between;
     }
-    .nav-logo { font-weight: 500; font-size: 15px; color: var(--text); }
-    .nav-logo span { color: var(--text); }
+    .nav-logo { font-weight: 600; font-size: 15px; color: var(--text); }
+    .nav-logo .logo-accent { color: var(--blue); }
     .nav-links { display: flex; gap: 28px; list-style: none; }
     .nav-links a {
       font-size: 13px;
@@ -107,7 +130,7 @@
       color: var(--text-muted);
       transition: color var(--transition);
     }
-    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover { color: var(--blue); }
     .nav-toggle {
       display: none; flex-direction: column; gap: 5px;
       cursor: pointer; background: none; border: none; padding: 4px;
@@ -131,6 +154,8 @@
       align-items: center;
       padding: 80px 0 60px;
       border-top: none;
+      background: radial-gradient(ellipse 70% 60% at 10% 70%, rgba(37, 99, 235, 0.05) 0%, transparent 60%),
+                  radial-gradient(ellipse 50% 40% at 90% 30%, rgba(124, 58, 237, 0.04) 0%, transparent 60%);
     }
     .hero-eyebrow {
       font-size: 12px;
@@ -145,9 +170,13 @@
       line-height: 1.08;
       letter-spacing: -0.02em;
       margin-bottom: 14px;
-      color: var(--text);
     }
-    .hero-name .gradient { color: var(--text); }
+    .hero-name .gradient {
+      background: linear-gradient(130deg, var(--text) 30%, var(--blue) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
     .hero-tagline {
       font-size: clamp(16px, 2vw, 19px);
       font-weight: 300;
@@ -160,7 +189,7 @@
       font-weight: 300;
       margin-bottom: 40px;
     }
-    .hero-institution strong { font-weight: 400; color: var(--text-muted); }
+    .hero-institution strong { font-weight: 500; color: var(--text-muted); }
     .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
     .btn {
       display: inline-flex; align-items: center; gap: 7px;
@@ -173,9 +202,13 @@
       color: var(--text);
       background: transparent;
     }
-    .btn-primary { background: var(--text); color: var(--bg); border-color: var(--text); }
-    .btn-primary:hover { background: #3a3835; border-color: #3a3835; }
-    .btn-outline:hover { border-color: var(--text-muted); }
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+    }
+    .btn-primary:hover { background: #1d4ed8; border-color: #1d4ed8; }
+    .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
 
     /* ── About ── */
     .about-grid {
@@ -207,14 +240,17 @@
     .about-bio p:last-of-type { margin-bottom: 28px; }
     .about-badges { display: flex; flex-wrap: wrap; gap: 6px; }
     .badge {
-      font-size: 11px; font-weight: 400;
+      font-size: 11px; font-weight: 500;
       padding: 4px 10px;
-      border-radius: 3px;
+      border-radius: 20px;
       border: 1px solid var(--border);
       color: var(--text-muted);
       background: var(--bg-2);
     }
-    .badge-blue, .badge-green, .badge-purple, .badge-gold { color: var(--text-muted); border-color: var(--border); background: var(--bg-2); }
+    .badge-blue   { background: var(--blue-light);   border-color: var(--blue-border);   color: var(--blue); }
+    .badge-green  { background: var(--green-light);  border-color: var(--green-border);  color: var(--green); }
+    .badge-purple { background: var(--purple-light); border-color: var(--purple-border); color: var(--purple); }
+    .badge-gold   { background: var(--amber-light);  border-color: var(--amber-border);  color: var(--amber); }
 
     /* ── Research Cards ── */
     .cards-grid {
@@ -229,17 +265,20 @@
     .card {
       background: var(--bg);
       padding: 24px;
-      transition: background var(--transition);
+      transition: background var(--transition), box-shadow var(--transition);
     }
-    .card:hover { background: var(--bg-2); }
-    .card-icon { font-size: 20px; margin-bottom: 12px; line-height: 1; }
+    .card:hover {
+      background: var(--bg-2);
+      box-shadow: inset 3px 0 0 var(--blue);
+    }
+    .card-icon { font-size: 22px; margin-bottom: 12px; line-height: 1; }
     .card h3 { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
     .card p { font-size: 13px; color: var(--text-muted); font-weight: 300; line-height: 1.6; }
 
     /* ── Publications ── */
     .pub-group { margin-bottom: 40px; }
     .pub-group-title {
-      font-size: 11px; font-weight: 500;
+      font-size: 11px; font-weight: 600;
       letter-spacing: 0.08em; text-transform: uppercase;
       color: var(--text-dim);
       margin-bottom: 16px;
@@ -264,13 +303,13 @@
     .pub-meta { font-size: 13px; color: var(--text-muted); font-weight: 300; }
     .pub-journal { font-size: 13px; color: var(--text-muted); margin-top: 3px; font-style: italic; font-weight: 300; }
     .pub-tag {
-      display: inline-block; font-size: 10px; font-weight: 500;
-      padding: 2px 7px; border-radius: 3px;
+      display: inline-block; font-size: 10px; font-weight: 600;
+      padding: 2px 8px; border-radius: 20px;
       margin-top: 6px; border: 1px solid var(--border);
       color: var(--text-dim); background: var(--bg-2);
     }
-    .pub-tag-submitted { color: var(--text-dim); }
-    .pub-tag-wip { color: var(--text-dim); }
+    .pub-tag-submitted { background: var(--blue-light);  border-color: var(--blue-border);  color: var(--blue); }
+    .pub-tag-wip       { background: var(--amber-light); border-color: var(--amber-border); color: var(--amber); }
     .pub-presented { font-size: 12px; color: var(--text-dim); margin-top: 5px; font-weight: 300; }
     .pub-presented strong { font-weight: 500; color: var(--text-muted); }
 
@@ -279,19 +318,32 @@
     .tl-item {
       display: grid;
       grid-template-columns: 160px 1fr;
-      gap: 24px;
+      gap: 3px 24px;
       padding: 20px 0;
       border-bottom: 1px solid var(--border);
+      align-items: start;
+      transition: background var(--transition);
     }
     .tl-item:last-child { border-bottom: none; }
     .tl-dot { display: none; }
-    .tl-date { font-size: 12px; font-weight: 400; color: var(--text-dim); padding-top: 2px; }
-    .tl-title { font-size: 14px; font-weight: 400; margin-bottom: 2px; }
-    .tl-subtitle { font-size: 13px; color: var(--text-muted); font-weight: 300; }
-    .tl-body { font-size: 13px; color: var(--text-muted); margin-top: 4px; font-weight: 300; }
+    .tl-date {
+      grid-column: 1;
+      grid-row: 1 / 4;
+      font-size: 12px; font-weight: 400;
+      color: var(--text-dim);
+      padding-top: 2px;
+      border-left: 2px solid var(--border);
+      padding-left: 10px;
+      transition: border-color var(--transition);
+    }
+    .tl-item:hover .tl-date { border-left-color: var(--blue); color: var(--blue); }
+    .tl-title { grid-column: 2; font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+    .tl-subtitle { grid-column: 2; font-size: 13px; color: var(--text-muted); font-weight: 300; }
+    .tl-body { grid-column: 2; font-size: 13px; color: var(--text-muted); margin-top: 4px; font-weight: 300; }
     @media (max-width: 600px) {
       .tl-item { grid-template-columns: 1fr; gap: 4px; }
-      .tl-date { padding-top: 0; }
+      .tl-date { grid-column: 1; grid-row: auto; border-left: none; padding-left: 0; }
+      .tl-title, .tl-subtitle, .tl-body { grid-column: 1; }
     }
 
     /* ── Education ── */
@@ -306,9 +358,12 @@
     }
     .edu-card { background: var(--bg); padding: 24px; transition: background var(--transition); }
     .edu-card:hover { background: var(--bg-2); }
-    .edu-card.current { background: var(--bg-2); }
+    .edu-card.current {
+      background: var(--bg);
+      box-shadow: inset 0 3px 0 var(--green);
+    }
     .edu-year { font-size: 11px; font-weight: 400; color: var(--text-dim); margin-bottom: 8px; }
-    .edu-degree { font-size: 15px; font-weight: 400; margin-bottom: 3px; }
+    .edu-degree { font-size: 15px; font-weight: 500; margin-bottom: 3px; }
     .edu-field { font-size: 13px; color: var(--text-muted); font-weight: 300; margin-bottom: 8px; }
     .edu-institution { font-size: 13px; color: var(--text-dim); font-weight: 300; }
 
@@ -320,13 +375,13 @@
     .conf-num { width: 32px; padding: 13px 0; font-size: 12px; font-weight: 300; color: var(--text-dim); vertical-align: top; }
     .conf-name { padding: 13px 16px 13px 0; font-size: 14px; font-weight: 300; color: var(--text); }
     .conf-type {
-      font-size: 10px; font-weight: 500;
-      padding: 2px 7px; border-radius: 3px;
+      font-size: 10px; font-weight: 600;
+      padding: 2px 7px; border-radius: 20px;
       margin-left: 8px; vertical-align: middle; white-space: nowrap;
       border: 1px solid var(--border); color: var(--text-dim); background: var(--bg-2);
     }
-    .conf-type-oral   { color: var(--text-dim); }
-    .conf-type-poster { color: var(--text-dim); }
+    .conf-type-oral   { background: var(--blue-light);   border-color: var(--blue-border);   color: var(--blue); }
+    .conf-type-poster { background: var(--purple-light); border-color: var(--purple-border); color: var(--purple); }
     .conf-date { padding: 13px 0; font-size: 12px; color: var(--text-dim); font-weight: 300; white-space: nowrap; text-align: right; vertical-align: top; }
 
     /* ── Awards table ── */
@@ -336,7 +391,7 @@
     .awards-table tr:hover td { background: var(--bg-2); }
     .award-name { padding: 13px 16px 13px 0; font-size: 14px; font-weight: 300; color: var(--text); }
     .award-note { padding: 13px 0; font-size: 12px; color: var(--text-dim); text-align: right; font-weight: 300; }
-    .award-amount { font-size: 12px; font-weight: 400; color: var(--text-muted); margin-left: 6px; }
+    .award-amount { font-size: 12px; font-weight: 500; color: var(--green); margin-left: 6px; }
 
     /* ── Contact ── */
     #contact { text-align: center; }
@@ -347,9 +402,9 @@
       padding: 12px 24px;
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      transition: border-color var(--transition);
+      transition: border-color var(--transition), color var(--transition);
     }
-    .contact-email:hover { border-color: var(--text-muted); }
+    .contact-email:hover { border-color: var(--blue); color: var(--blue); }
 
     /* ── Footer ── */
     footer {
@@ -364,8 +419,8 @@
     /* ── Scroll progress ── */
     #progress {
       position: fixed; top: 0; left: 0;
-      height: 1px;
-      background: var(--text-muted);
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--purple));
       z-index: 200; width: 0%;
       transition: width 0.1s linear;
     }
@@ -379,7 +434,7 @@
 <!-- ─── Navigation ─── -->
 <nav id="navbar">
   <div class="nav-inner">
-    <span class="nav-logo">Raeed <span>Kabir</span></span>
+    <span class="nav-logo">Raeed <span class="logo-accent">Kabir</span></span>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
@@ -448,7 +503,7 @@
       <div class="about-bio">
         <p>
           I'm a 4th-year undergraduate at the <strong>University of Alabama</strong> pursuing degrees in Mathematics
-          and Economics on a pre-med track. 
+          and Economics on a pre-med track.
         </p>
         <p>
           After completing my undergraduate degrees, I'll pursue an M.A. in Mathematics (2027) and a PhD in
@@ -512,7 +567,7 @@
       <div class="pub-item">
         <div class="pub-num pub-num-wp">1</div>
         <div>
-          <div class="pub-meta">Working paper with Michael Price and Tigran Melkonyan. <a href="#" style="color:var(--accent);"></a></div>
+          <div class="pub-meta">Working paper with Michael Price and Tigran Melkonyan. <a href="#" style="color:var(--blue);"></a></div>
           <span class="pub-tag pub-tag-wip">Working Paper</span>
           <div class="pub-presented"><strong>Presented at:</strong> Advances with Field Experiments, Harvard Economics Pre-Doc Seminar, University of Alabama Brown Bag, University of Alabama Capstone Scholars Day.</div>
         </div>
@@ -687,7 +742,7 @@
 
     <div class="edu-grid">
       <div class="edu-card current">
-        <div class="edu-year">2022 – 2026 &nbsp;·&nbsp; <span style="color:var(--green);">Current</span></div>
+        <div class="edu-year">2022 – 2026 &nbsp;·&nbsp; <span style="color:var(--green);font-weight:500;">Current</span></div>
         <div class="edu-degree">B.S. Mathematics &amp; Economics</div>
         <div class="edu-field">Pre-Med Track · Double Major</div>
         <div class="edu-institution">University of Alabama</div>
