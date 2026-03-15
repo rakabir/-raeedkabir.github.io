@@ -12,44 +12,34 @@
        Design Tokens
     ─────────────────────────────── */
     :root {
-      /* Base surfaces */
       --bg:          #fafaf9;
       --bg-2:        #f4f3ef;
       --bg-3:        #eeedea;
       --border:      #e2e0db;
 
-      /* Text */
       --text:        #18171a;
       --text-muted:  #57555c;
       --text-dim:    #96949a;
 
-      /* Accent — blue */
       --blue:        #2563eb;
       --blue-light:  #eff6ff;
       --blue-border: #bfdbfe;
 
-      /* Green */
       --green:        #16a34a;
       --green-light:  #f0fdf4;
       --green-border: #bbf7d0;
 
-      /* Purple */
       --purple:        #7c3aed;
       --purple-light:  #f5f3ff;
       --purple-border: #ddd6fe;
 
-      /* Amber */
       --amber:        #d97706;
       --amber-light:  #fffbeb;
       --amber-border: #fde68a;
 
-      /* Crimson (Alabama) */
-      --crimson: #9e1b32;
-
-      /* Layout */
-      --radius:    8px;
-      --radius-sm: 5px;
-      --max-w:     860px;
+      --sidebar-w:  272px;
+      --radius:     8px;
+      --radius-sm:  5px;
       --transition: 0.2s ease;
     }
 
@@ -68,163 +58,208 @@
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
 
-    /* ── Layout ── */
-    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
-    section { padding: 80px 0; border-top: 1px solid var(--border); }
-    section:first-of-type { border-top: none; }
+    /* ── Scroll progress ── */
+    #progress {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--purple));
+      z-index: 200; width: 0%;
+      transition: width 0.1s linear;
+    }
 
+    /* ─────────────────────────────────────
+       PAGE LAYOUT — sidebar + main
+    ───────────────────────────────────── */
+    .page-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      border-right: 1px solid var(--border);
+      background: var(--bg);
+      padding: 48px 32px 40px;
+      display: flex;
+      flex-direction: column;
+    }
+    /* hide scrollbar in sidebar */
+    .sidebar::-webkit-scrollbar { width: 0; }
+
+    .sb-photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--border);
+      margin-bottom: 18px;
+    }
+    .sb-photo-placeholder {
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      background: var(--bg-3);
+      border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-dim);
+      margin-bottom: 18px;
+    }
+
+    .sb-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 2px;
+    }
+    .sb-name .sb-accent { color: var(--blue); }
+
+    .sb-tagline {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 300;
+      margin-bottom: 4px;
+    }
+    .sb-institution {
+      font-size: 12px;
+      color: var(--text-dim);
+      font-weight: 300;
+      margin-bottom: 6px;
+    }
+    .sb-program {
+      font-size: 11px;
+      color: var(--text-dim);
+      font-weight: 300;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .sb-divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 20px;
+    }
+
+    .sb-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      margin-bottom: 28px;
+    }
+    .sb-nav a {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-muted);
+      padding: 5px 10px;
+      border-radius: var(--radius-sm);
+      margin-left: -10px;
+      transition: color var(--transition), background var(--transition);
+    }
+    .sb-nav a:hover {
+      color: var(--blue);
+      background: var(--blue-light);
+    }
+    .sb-nav a.active {
+      color: var(--blue);
+      font-weight: 500;
+    }
+
+    .sb-contact {
+      margin-bottom: 16px;
+    }
+    .sb-contact a {
+      font-size: 11px;
+      color: var(--text-dim);
+      font-weight: 300;
+      word-break: break-all;
+      transition: color var(--transition);
+    }
+    .sb-contact a:hover { color: var(--blue); }
+
+    .sb-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 500;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--blue);
+      color: #fff;
+      border: 1px solid var(--blue);
+      cursor: pointer;
+      transition: background var(--transition);
+      margin-bottom: 24px;
+      width: 100%;
+      justify-content: center;
+    }
+    .sb-cta:hover { background: #1d4ed8; border-color: #1d4ed8; }
+
+    .sb-footer {
+      margin-top: auto;
+      padding-top: 20px;
+      font-size: 10px;
+      color: var(--text-dim);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    /* ── Main content ── */
+    .main-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .main-content section {
+      padding: 64px 72px;
+      border-bottom: 1px solid var(--border);
+      max-width: 800px;
+    }
+    .main-content section:last-child { border-bottom: none; }
+
+    /* Section typography */
     .section-label {
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--blue);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     .section-title {
-      font-size: clamp(22px, 3vw, 30px);
+      font-size: clamp(20px, 2.5vw, 28px);
       font-weight: 400;
       line-height: 1.25;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
       color: var(--text);
     }
     .section-sub {
-      font-size: 15px;
+      font-size: 14px;
       color: var(--text-muted);
-      max-width: 560px;
-      margin-bottom: 40px;
+      max-width: 520px;
+      margin-bottom: 36px;
       font-weight: 300;
     }
 
     /* Fade-in */
-    .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .fade-in { opacity: 0; transform: translateY(14px); transition: opacity 0.5s ease, transform 0.5s ease; }
     .fade-in.visible { opacity: 1; transform: none; }
-
-    /* ── Navigation ── */
-    #navbar {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(250, 250, 249, 0.92);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid transparent;
-      transition: border-color var(--transition);
-    }
-    #navbar.scrolled { border-color: var(--border); }
-    .nav-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 32px;
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .nav-logo { font-weight: 600; font-size: 15px; color: var(--text); }
-    .nav-logo .logo-accent { color: var(--blue); }
-    .nav-links { display: flex; gap: 28px; list-style: none; }
-    .nav-links a {
-      font-size: 13px;
-      font-weight: 400;
-      color: var(--text-muted);
-      transition: color var(--transition);
-    }
-    .nav-links a:hover { color: var(--blue); }
-    .nav-toggle {
-      display: none; flex-direction: column; gap: 5px;
-      cursor: pointer; background: none; border: none; padding: 4px;
-    }
-    .nav-toggle span { display: block; width: 20px; height: 1.5px; background: var(--text-muted); }
-    @media (max-width: 700px) {
-      .nav-toggle { display: flex; }
-      .nav-links {
-        display: none; position: absolute; top: 56px; left: 0; right: 0;
-        background: var(--bg); border-bottom: 1px solid var(--border);
-        flex-direction: column; gap: 0; padding: 4px 0;
-      }
-      .nav-links.open { display: flex; }
-      .nav-links li a { display: block; padding: 11px 32px; }
-    }
-
-    /* ── Hero ── */
-    #hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 80px 0 60px;
-      border-top: none;
-      background: radial-gradient(ellipse 70% 60% at 10% 70%, rgba(37, 99, 235, 0.05) 0%, transparent 60%),
-                  radial-gradient(ellipse 50% 40% at 90% 30%, rgba(124, 58, 237, 0.04) 0%, transparent 60%);
-    }
-    .hero-eyebrow {
-      font-size: 12px;
-      font-weight: 400;
-      color: var(--text-dim);
-      margin-bottom: 20px;
-      letter-spacing: 0.02em;
-    }
-    .hero-name {
-      font-size: clamp(40px, 6vw, 68px);
-      font-weight: 300;
-      line-height: 1.08;
-      letter-spacing: -0.02em;
-      margin-bottom: 14px;
-    }
-    .hero-name .gradient {
-      background: linear-gradient(130deg, var(--text) 30%, var(--blue) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .hero-tagline {
-      font-size: clamp(16px, 2vw, 19px);
-      font-weight: 300;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
-    .hero-institution {
-      font-size: 14px;
-      color: var(--text-dim);
-      font-weight: 300;
-      margin-bottom: 40px;
-    }
-    .hero-institution strong { font-weight: 500; color: var(--text-muted); }
-    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 7px;
-      font-size: 13px; font-weight: 400;
-      padding: 9px 20px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      cursor: pointer;
-      transition: all var(--transition);
-      color: var(--text);
-      background: transparent;
-    }
-    .btn-primary {
-      background: var(--blue);
-      color: #fff;
-      border-color: var(--blue);
-    }
-    .btn-primary:hover { background: #1d4ed8; border-color: #1d4ed8; }
-    .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
 
     /* ── About ── */
     .about-grid {
       display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 56px;
+      grid-template-columns: 180px 1fr;
+      gap: 40px;
       align-items: start;
     }
-    @media (max-width: 700px) { .about-grid { grid-template-columns: 1fr; gap: 32px; } }
-    .about-photo-wrap { position: relative; }
+    @media (max-width: 600px) { .about-grid { grid-template-columns: 1fr; gap: 24px; } }
     .about-photo {
       width: 100%; aspect-ratio: 3/4;
       border-radius: var(--radius);
       object-fit: cover;
       border: 1px solid var(--border);
-      background: var(--bg-3);
     }
     .photo-placeholder {
       width: 100%; aspect-ratio: 3/4;
@@ -236,12 +271,12 @@
       gap: 10px; color: var(--text-dim); font-size: 12px;
     }
     .photo-placeholder svg { opacity: 0.3; }
-    .about-bio p { font-size: 15px; color: var(--text-muted); font-weight: 300; margin-bottom: 16px; }
-    .about-bio p:last-of-type { margin-bottom: 28px; }
+    .about-bio p { font-size: 14px; color: var(--text-muted); font-weight: 300; margin-bottom: 14px; line-height: 1.8; }
+    .about-bio p:last-of-type { margin-bottom: 24px; }
     .about-badges { display: flex; flex-wrap: wrap; gap: 6px; }
     .badge {
       font-size: 11px; font-weight: 500;
-      padding: 4px 10px;
+      padding: 3px 10px;
       border-radius: 20px;
       border: 1px solid var(--border);
       color: var(--text-muted);
@@ -255,7 +290,7 @@
     /* ── Research Cards ── */
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 1px;
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -264,84 +299,65 @@
     }
     .card {
       background: var(--bg);
-      padding: 24px;
+      padding: 22px;
       transition: background var(--transition), box-shadow var(--transition);
     }
-    .card:hover {
-      background: var(--bg-2);
-      box-shadow: inset 3px 0 0 var(--blue);
-    }
-    .card-icon { font-size: 22px; margin-bottom: 12px; line-height: 1; }
-    .card h3 { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
-    .card p { font-size: 13px; color: var(--text-muted); font-weight: 300; line-height: 1.6; }
+    .card:hover { background: var(--bg-2); box-shadow: inset 3px 0 0 var(--blue); }
+    .card-icon { font-size: 20px; margin-bottom: 10px; line-height: 1; }
+    .card h3 { font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+    .card p { font-size: 12px; color: var(--text-muted); font-weight: 300; line-height: 1.6; }
 
     /* ── Publications ── */
-    .pub-group { margin-bottom: 40px; }
+    .pub-group { margin-bottom: 36px; }
     .pub-group-title {
       font-size: 11px; font-weight: 600;
       letter-spacing: 0.08em; text-transform: uppercase;
       color: var(--text-dim);
-      margin-bottom: 16px;
-      padding-bottom: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
       border-bottom: 1px solid var(--border);
     }
-    .pub-item {
-      display: flex; gap: 16px;
-      padding: 16px 0;
-      border-bottom: 1px solid var(--border);
-    }
+    .pub-item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border); }
     .pub-item:last-child { border-bottom: none; }
-    .pub-num {
-      flex-shrink: 0;
-      width: 20px;
-      font-size: 12px; font-weight: 400;
-      color: var(--text-dim);
-      padding-top: 1px;
-    }
-    .pub-num-wp { color: var(--text-dim); }
-    .pub-title { font-size: 14px; font-weight: 400; margin-bottom: 3px; }
-    .pub-meta { font-size: 13px; color: var(--text-muted); font-weight: 300; }
-    .pub-journal { font-size: 13px; color: var(--text-muted); margin-top: 3px; font-style: italic; font-weight: 300; }
+    .pub-num { flex-shrink: 0; width: 18px; font-size: 12px; font-weight: 400; color: var(--text-dim); padding-top: 1px; }
+    .pub-title { font-size: 13px; font-weight: 400; margin-bottom: 3px; }
+    .pub-meta { font-size: 12px; color: var(--text-muted); font-weight: 300; }
+    .pub-journal { font-size: 12px; color: var(--text-muted); margin-top: 3px; font-style: italic; font-weight: 300; }
     .pub-tag {
       display: inline-block; font-size: 10px; font-weight: 600;
-      padding: 2px 8px; border-radius: 20px;
-      margin-top: 6px; border: 1px solid var(--border);
-      color: var(--text-dim); background: var(--bg-2);
+      padding: 2px 8px; border-radius: 20px; margin-top: 6px;
+      border: 1px solid var(--border); color: var(--text-dim); background: var(--bg-2);
     }
     .pub-tag-submitted { background: var(--blue-light);  border-color: var(--blue-border);  color: var(--blue); }
     .pub-tag-wip       { background: var(--amber-light); border-color: var(--amber-border); color: var(--amber); }
-    .pub-presented { font-size: 12px; color: var(--text-dim); margin-top: 5px; font-weight: 300; }
+    .pub-presented { font-size: 11px; color: var(--text-dim); margin-top: 5px; font-weight: 300; }
     .pub-presented strong { font-weight: 500; color: var(--text-muted); }
 
     /* ── Timeline ── */
-    .timeline { position: relative; }
     .tl-item {
       display: grid;
-      grid-template-columns: 160px 1fr;
-      gap: 3px 24px;
-      padding: 20px 0;
+      grid-template-columns: 150px 1fr;
+      gap: 3px 20px;
+      padding: 18px 0;
       border-bottom: 1px solid var(--border);
       align-items: start;
-      transition: background var(--transition);
     }
     .tl-item:last-child { border-bottom: none; }
     .tl-dot { display: none; }
     .tl-date {
-      grid-column: 1;
-      grid-row: 1 / 4;
-      font-size: 12px; font-weight: 400;
-      color: var(--text-dim);
+      grid-column: 1; grid-row: 1 / 4;
+      font-size: 11px; font-weight: 400; color: var(--text-dim);
       padding-top: 2px;
       border-left: 2px solid var(--border);
       padding-left: 10px;
-      transition: border-color var(--transition);
+      transition: border-color var(--transition), color var(--transition);
     }
     .tl-item:hover .tl-date { border-left-color: var(--blue); color: var(--blue); }
-    .tl-title { grid-column: 2; font-size: 14px; font-weight: 500; margin-bottom: 2px; }
-    .tl-subtitle { grid-column: 2; font-size: 13px; color: var(--text-muted); font-weight: 300; }
-    .tl-body { grid-column: 2; font-size: 13px; color: var(--text-muted); margin-top: 4px; font-weight: 300; }
+    .tl-title { grid-column: 2; font-size: 13px; font-weight: 500; margin-bottom: 2px; }
+    .tl-subtitle { grid-column: 2; font-size: 12px; color: var(--text-muted); font-weight: 300; }
+    .tl-body { grid-column: 2; font-size: 12px; color: var(--text-muted); margin-top: 4px; font-weight: 300; }
     @media (max-width: 600px) {
-      .tl-item { grid-template-columns: 1fr; gap: 4px; }
+      .tl-item { grid-template-columns: 1fr; gap: 3px; }
       .tl-date { grid-column: 1; grid-row: auto; border-left: none; padding-left: 0; }
       .tl-title, .tl-subtitle, .tl-body { grid-column: 1; }
     }
@@ -349,31 +365,28 @@
     /* ── Education ── */
     .edu-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 1px;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       overflow: hidden;
       background: var(--border);
     }
-    .edu-card { background: var(--bg); padding: 24px; transition: background var(--transition); }
+    .edu-card { background: var(--bg); padding: 22px; transition: background var(--transition); }
     .edu-card:hover { background: var(--bg-2); }
-    .edu-card.current {
-      background: var(--bg);
-      box-shadow: inset 0 3px 0 var(--green);
-    }
+    .edu-card.current { box-shadow: inset 0 3px 0 var(--green); }
     .edu-year { font-size: 11px; font-weight: 400; color: var(--text-dim); margin-bottom: 8px; }
-    .edu-degree { font-size: 15px; font-weight: 500; margin-bottom: 3px; }
-    .edu-field { font-size: 13px; color: var(--text-muted); font-weight: 300; margin-bottom: 8px; }
-    .edu-institution { font-size: 13px; color: var(--text-dim); font-weight: 300; }
+    .edu-degree { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+    .edu-field { font-size: 12px; color: var(--text-muted); font-weight: 300; margin-bottom: 8px; }
+    .edu-institution { font-size: 12px; color: var(--text-dim); font-weight: 300; }
 
     /* ── Conferences ── */
     .conf-table { width: 100%; border-collapse: collapse; }
     .conf-table tr { border-bottom: 1px solid var(--border); }
     .conf-table tr:last-child { border-bottom: none; }
     .conf-table tr:hover td { background: var(--bg-2); }
-    .conf-num { width: 32px; padding: 13px 0; font-size: 12px; font-weight: 300; color: var(--text-dim); vertical-align: top; }
-    .conf-name { padding: 13px 16px 13px 0; font-size: 14px; font-weight: 300; color: var(--text); }
+    .conf-num { width: 28px; padding: 12px 0; font-size: 11px; color: var(--text-dim); vertical-align: top; }
+    .conf-name { padding: 12px 14px 12px 0; font-size: 13px; font-weight: 300; }
     .conf-type {
       font-size: 10px; font-weight: 600;
       padding: 2px 7px; border-radius: 20px;
@@ -382,559 +395,424 @@
     }
     .conf-type-oral   { background: var(--blue-light);   border-color: var(--blue-border);   color: var(--blue); }
     .conf-type-poster { background: var(--purple-light); border-color: var(--purple-border); color: var(--purple); }
-    .conf-date { padding: 13px 0; font-size: 12px; color: var(--text-dim); font-weight: 300; white-space: nowrap; text-align: right; vertical-align: top; }
+    .conf-date { padding: 12px 0; font-size: 11px; color: var(--text-dim); white-space: nowrap; text-align: right; vertical-align: top; }
 
-    /* ── Awards table ── */
+    /* ── Awards ── */
     .awards-table { width: 100%; border-collapse: collapse; }
     .awards-table tr { border-bottom: 1px solid var(--border); }
     .awards-table tr:last-child { border-bottom: none; }
     .awards-table tr:hover td { background: var(--bg-2); }
-    .award-name { padding: 13px 16px 13px 0; font-size: 14px; font-weight: 300; color: var(--text); }
-    .award-note { padding: 13px 0; font-size: 12px; color: var(--text-dim); text-align: right; font-weight: 300; }
-    .award-amount { font-size: 12px; font-weight: 500; color: var(--green); margin-left: 6px; }
+    .award-name { padding: 12px 14px 12px 0; font-size: 13px; font-weight: 300; }
+    .award-note { padding: 12px 0; font-size: 11px; color: var(--text-dim); text-align: right; font-weight: 300; }
+    .award-amount { font-size: 11px; font-weight: 500; color: var(--green); margin-left: 6px; }
 
     /* ── Contact ── */
     #contact { text-align: center; }
-    #contact .section-sub { margin: 0 auto 32px; }
+    #contact .section-sub { margin: 0 auto 28px; }
     .contact-email {
       display: inline-flex; align-items: center; gap: 8px;
-      font-size: 15px; font-weight: 300; color: var(--text);
-      padding: 12px 24px;
+      font-size: 14px; font-weight: 300;
+      padding: 11px 22px;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       transition: border-color var(--transition), color var(--transition);
     }
     .contact-email:hover { border-color: var(--blue); color: var(--blue); }
 
-    /* ── Footer ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 0;
-      text-align: center;
-      font-size: 12px;
-      font-weight: 300;
-      color: var(--text-dim);
-    }
-
-    /* ── Scroll progress ── */
-    #progress {
-      position: fixed; top: 0; left: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--blue), var(--purple));
-      z-index: 200; width: 0%;
-      transition: width 0.1s linear;
+    /* ── Mobile layout ── */
+    @media (max-width: 900px) {
+      .page-layout { flex-direction: column; }
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 32px 28px 24px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 20px;
+        align-items: flex-start;
+      }
+      .sb-photo { margin-bottom: 0; width: 72px; height: 72px; }
+      .sb-photo-placeholder { margin-bottom: 0; width: 72px; height: 72px; }
+      .sb-identity { flex: 1; min-width: 160px; }
+      .sb-nav { flex-direction: row; flex-wrap: wrap; gap: 4px; width: 100%; }
+      .sb-nav a { margin-left: 0; }
+      .sb-footer { display: none; }
+      .sb-divider { width: 100%; }
+      .sb-cta { width: auto; }
+      .main-content section { padding: 48px 28px; }
     }
   </style>
 </head>
 <body>
 
-<!-- Scroll progress bar -->
 <div id="progress"></div>
 
-<!-- ─── Navigation ─── -->
-<nav id="navbar">
-  <div class="nav-inner">
-    <span class="nav-logo">Raeed <span class="logo-accent">Kabir</span></span>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#about">About</a></li>
-      <li><a href="#research">Research</a></li>
-      <li><a href="#publications">Publications</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#conferences">Conferences</a></li>
-      <li><a href="#awards">Awards</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </div>
-</nav>
+<div class="page-layout">
 
-<!-- ─── Hero ─── -->
-<section id="hero">
-  <div class="container hero-content fade-in">
-    <div class="hero-eyebrow">University of Alabama 2022-2028</div>
-    <h1 class="hero-name">
-      <span class="gradient">Raeed Kabir</span>
-    </h1>
-    <p class="hero-tagline">Researcher &nbsp;·&nbsp; Economist &nbsp;·&nbsp; Pre-Med</p>
-    <p class="hero-institution">
-      <strong>B.S. Mathematics &amp; Economics</strong> &nbsp;|&nbsp; M.A. Mathematics (2027) &nbsp;|&nbsp; PhD Quantitative Economics (2028)
-    </p>
-    <div class="hero-ctas">
-      <a href="mailto:raeed.kabir@gmail.com" class="btn btn-primary">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        Get in Touch
-      </a>
-      <a href="#publications" class="btn btn-outline">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-        View Publications
-      </a>
-      <a href="#research" class="btn btn-outline">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        Research Interests
-      </a>
+  <!-- ─── Sidebar ─── -->
+  <aside class="sidebar">
+
+    <img
+      src="images/profile.jpg"
+      alt="Raeed Kabir"
+      class="sb-photo"
+      id="sbPhoto"
+      onerror="this.style.display='none'; document.getElementById('sbPlaceholder').style.display='flex';"
+    />
+    <div class="sb-photo-placeholder" id="sbPlaceholder" style="display:none;">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
     </div>
-  </div>
-</section>
 
-<!-- ─── About ─── -->
-<section id="about">
-  <div class="container fade-in">
-    <p class="section-label">About Me</p>
-    <h2 class="section-title"> I believe in empathy-driven research questions.</h2>
-    <div class="about-grid">
-      <!-- Photo -->
-      <div class="about-photo-wrap">
-        <img
-          src="images/profile.jpg"
-          alt="Raeed Kabir"
-          class="about-photo"
-          id="profileImg"
-          onerror="this.style.display='none'; document.getElementById('photoPlaceholder').style.display='flex';"
-        />
-        <div class="photo-placeholder" id="photoPlaceholder" style="display:none;">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-          <span>Add profile.jpg to images/</span>
-        </div>
-      </div>
-      <!-- Bio -->
-      <div class="about-bio">
-        <p>
-          I'm a 4th-year undergraduate at the <strong>University of Alabama</strong> pursuing degrees in Mathematics
-          and Economics on a pre-med track.
-        </p>
-        <p>
-          After completing my undergraduate degrees, I'll pursue an M.A. in Mathematics (2027) and a PhD in
-          Quantitative Economics (2028) at the University of Alabama. I plan to go on to medical school afterwards.
-        </p>
-        <div class="about-badges">
-          <span class="badge badge-blue">Behavioral Economics</span>
-          <span class="badge badge-green">Environmental Health</span>
-          <span class="badge badge-purple">AI in Healthcare</span>
-          <span class="badge badge-gold">Public Economics</span>
-          <span class="badge badge-blue">Causal Inference</span>
-          <span class="badge badge-green">Pre-Med</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── Research Interests ─── -->
-<section id="research">
-  <div class="container fade-in">
-    <p class="section-label">Research Interests</p>
-    <h2 class="section-title">Questions I'm asking.</h2>
-    <p class="section-sub">My work sits at the intersection of behavioral and experimental economics.</p>
-    <div class="cards-grid">
-      <div class="card">
-        <div class="card-icon">🧪</div>
-        <h3>Behavioral &amp; Experimental Economics</h3>
-        <p> Lab, field, and survey experiment.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">🌱</div>
-        <h3>Environmental Health Economics</h3>
-        <p>Causal estimation of how environmental exposures affect health and economic outcomes.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">🤖</div>
-        <h3>AI in Healthcare</h3>
-        <p>Evaluating and deploying expert AI systems for clinical decision support, disease prognosis, and diagnostics in resource-limited settings.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">📊</div>
-        <h3>Public &amp; Health Economics</h3>
-        <p>Estimating deep structural parameters to understand individual-level policy support.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── Publications ─── -->
-<section id="publications">
-  <div class="container fade-in">
-    <p class="section-label">Publications &amp; Working Papers</p>
-    <h2 class="section-title">Research output.</h2>
-    <p class="section-sub">Projects</p>
-
-    <!-- Charitable Giving -->
-    <div class="pub-group">
-      <div class="pub-group-title">Charitable Giving in the Face of Uncertainty</div>
-
-      <div class="pub-item">
-        <div class="pub-num pub-num-wp">1</div>
-        <div>
-          <div class="pub-meta">Working paper with Michael Price and Tigran Melkonyan. <a href="#" style="color:var(--blue);"></a></div>
-          <span class="pub-tag pub-tag-wip">Working Paper</span>
-          <div class="pub-presented"><strong>Presented at:</strong> Advances with Field Experiments, Harvard Economics Pre-Doc Seminar, University of Alabama Brown Bag, University of Alabama Capstone Scholars Day.</div>
-        </div>
-      </div>
-
-      <div class="pub-item">
-        <div class="pub-num pub-num-wp">2</div>
-        <div>
-          <div class="pub-meta">Experimental paper in progress with Michael Price and Tigran Melkonyan.</div>
-          <span class="pub-tag pub-tag-wip">In Progress</span>
-          <div class="pub-presented"><strong>Presented at:</strong> UChicago Brown Bag, Yale Undergraduate Research Conference.</div>
-        </div>
-      </div>
-
-      <div class="pub-item">
-        <div class="pub-num pub-num-wp">4</div>
-        <div>
-          <div class="pub-meta">Work in progress with Michael Price, Tigran Melkonyan, and Faisal Kattan.</div>
-          <span class="pub-tag pub-tag-wip">In Progress</span>
-        </div>
+    <div class="sb-identity">
+      <div class="sb-name">Raeed <span class="sb-accent">Kabir</span></div>
+      <div class="sb-tagline">Researcher · Economist · Pre-Med</div>
+      <div class="sb-institution">University of Alabama · 2022–2028</div>
+      <div class="sb-program">
+        B.S. Mathematics &amp; Economics<br>
+        Pre-Med Track
       </div>
     </div>
 
-    <!-- Environmental Exposure -->
-    <div class="pub-group">
-      <div class="pub-group-title">Environmental Exposure on Health</div>
+    <div class="sb-divider"></div>
 
-      <div class="pub-item">
-        <div class="pub-num pub-num-wp">1</div>
-        <div>
-          <div class="pub-meta">Work in progress with Michael Price and Emmanuel Tsyawo.</div>
-          <span class="pub-tag pub-tag-wip">In Progress</span>
-          <div class="pub-presented"><strong>Presented at:</strong> NOAA Symposium.</div>
-        </div>
-      </div>
+    <nav class="sb-nav">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#publications">Publications</a>
+      <a href="#experience">Experience</a>
+      <a href="#conferences">Conferences</a>
+      <a href="#awards">Awards</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
 
-      <div class="pub-item">
-        <div class="pub-num pub-num-wp">2</div>
-        <div>
-          <div class="pub-meta">Several works in progress with Piper Larkin.</div>
-          <span class="pub-tag pub-tag-wip">In Progress</span>
-          <div class="pub-presented"><strong>Presented at:</strong> REGARDS Built Environment Working Group Meeting.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Public Economics -->
-    <div class="pub-group">
-      <div class="pub-group-title">Public Economics</div>
-
-      <div class="pub-item">
-        <div class="pub-num pub-num-wp">1</div>
-        <div>
-          <div class="pub-meta">Work in progress with Reshmaan Hussam.</div>
-          <span class="pub-tag pub-tag-wip">In Progress</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Experimental Economics -->
-    <div class="pub-group">
-      <div class="pub-group-title">Experimental Economics</div>
-
-      <div class="pub-item">
-        <div class="pub-num pub-num-wp">1</div>
-        <div>
-          <div class="pub-meta">Work in progress with John List.</div>
-          <span class="pub-tag pub-tag-wip">In Progress</span>
-          <div class="pub-presented"><strong>Presented at:</strong> Advances with Field Experiments, University of Alabama Brown Bag.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- AI in Health -->
-    <div class="pub-group">
-      <div class="pub-group-title">AI in Health</div>
-
-      <div class="pub-item">
-        <div class="pub-num">1</div>
-        <div>
-          <div class="pub-title">In Pursuit of an Expert Artificial Intelligence System: Reproducing Human Physicians Diagnostic Reasoning and Triage Decision Making</div>
-          <div class="pub-meta">Kabir, Azad, <strong>Raeed Kabir</strong>, Jebun Nahar. 2024.</div>
-          <div class="pub-journal">Journal of Artificial Intelligence and Soft Computing Techniques, 1: 1–14.</div>
-        </div>
-      </div>
-
-      <div class="pub-item">
-        <div class="pub-num pub-num-wp">2</div>
-        <div>
-          <div class="pub-meta">Submitted paper with Michael Williams, Jay Sanders, Tariq Nakhooda, and Mahmoud Zaher.</div>
-          <span class="pub-tag pub-tag-submitted">Submitted</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Clinical Studies -->
-    <div class="pub-group">
-      <div class="pub-group-title">Clinical Studies</div>
-
-      <div class="pub-item">
-        <div class="pub-num">1</div>
-        <div>
-          <div class="pub-title">D-Dimer trends predict COVID-19 patient's prognosis: A retrospective chart review study</div>
-          <div class="pub-meta"><strong>Kabir, Raeed</strong>, Iyana Malik, Reena Chen, Jebun Nahar, Eagle Chen, Sheikh M. Hoq, and Azad Kabir. 2023.</div>
-          <div class="pub-journal">Open Medicine, 18(1).</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ─── Experience ─── -->
-<section id="experience">
-  <div class="container fade-in">
-    <p class="section-label">Work Experience</p>
-    <h2 class="section-title">Where I've worked.</h2>
-    <p class="section-sub">Research positions at leading universities and federal agencies.</p>
-
-    <div class="timeline">
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-date">05/2025 – 08/2025</div>
-        <div class="tl-title">Research Intern — Low Earth Orbit Group</div>
-        <div class="tl-subtitle">National Oceanic and Atmospheric Administration · Greenbelt, MD</div>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-date">08/2022 – Present</div>
-        <div class="tl-title">Research Assistant to Prof. Michael K. Price</div>
-        <div class="tl-subtitle">University of Alabama, Culverhouse College of Business · Tuscaloosa, AL</div>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-date">08/2020 – Present</div>
-        <div class="tl-title">Research Assistant to Prof. Reshmaan Hussam</div>
-        <div class="tl-subtitle">Harvard Business School, BGIE Unit · Cambridge, MA</div>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-date">Summer 2024</div>
-        <div class="tl-title">Returning Research Assistant — Projects in Saudi Public Policy</div>
-        <div class="tl-subtitle">University of Chicago, Becker Friedman Institute · Chicago, IL</div>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-date">Summer 2023</div>
-        <div class="tl-title">Research Assistant to Prof. Benjamin Enke</div>
-        <div class="tl-subtitle">Harvard University · Cambridge, MA</div>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-date">Summer 2022</div>
-        <div class="tl-title">Research Assistant to Prof. John List</div>
-        <div class="tl-subtitle">University of Chicago, Becker Friedman Institute · Chicago, IL</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── Education ─── -->
-<section id="education">
-  <div class="container fade-in">
-    <p class="section-label">Education</p>
-    <h2 class="section-title">Academic path.</h2>
-    <p class="section-sub">School work</p>
-
-    <div class="edu-grid">
-      <div class="edu-card current">
-        <div class="edu-year">2022 – 2026 &nbsp;·&nbsp; <span style="color:var(--green);font-weight:500;">Current</span></div>
-        <div class="edu-degree">B.S. Mathematics &amp; Economics</div>
-        <div class="edu-field">Pre-Med Track · Double Major</div>
-        <div class="edu-institution">University of Alabama</div>
-      </div>
-
-      <div class="edu-card">
-        <div class="edu-year">Expected 2027</div>
-        <div class="edu-degree">M.A. Mathematics</div>
-        <div class="edu-field">Graduate Study</div>
-        <div class="edu-institution">University of Alabama</div>
-      </div>
-
-      <div class="edu-card">
-        <div class="edu-year">Expected 2028</div>
-        <div class="edu-degree">PhD Quantitative Economics</div>
-        <div class="edu-field">Doctoral Study</div>
-        <div class="edu-institution">University of Alabama, Mentored by Dr. Michael K. Price</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── Conferences ─── -->
-<section id="conferences">
-  <div class="container fade-in">
-    <p class="section-label">Conference Activity &amp; Presentations</p>
-    <h2 class="section-title">Where I've presented.</h2>
-    <table class="conf-table">
-      <tr>
-        <td class="conf-num">13.</td>
-        <td class="conf-name">Advances with Field Experiments @ UChicago <span class="conf-type conf-type-oral">Oral</span></td>
-        <td class="conf-date">September 2025</td>
-      </tr>
-      <tr>
-        <td class="conf-num">12.</td>
-        <td class="conf-name">Brown Bag @ UA <span class="conf-type conf-type-oral">Oral</span></td>
-        <td class="conf-date">September 2025</td>
-      </tr>
-      <tr>
-        <td class="conf-num">11.</td>
-        <td class="conf-name">Brown Bag Lunch Talk @ UChicago <span class="conf-type conf-type-oral">Oral</span></td>
-        <td class="conf-date">August 2025</td>
-      </tr>
-      <tr>
-        <td class="conf-num">10.</td>
-        <td class="conf-name">NOAA Hollings Symposium Presentation <span class="conf-type conf-type-oral">Oral</span></td>
-        <td class="conf-date">July 2025</td>
-      </tr>
-      <tr>
-        <td class="conf-num">9.</td>
-        <td class="conf-name">Yale Undergraduate Research Conference <span class="conf-type conf-type-poster">3rd Place · Social Science Poster</span></td>
-        <td class="conf-date">April 2025</td>
-      </tr>
-      <tr>
-        <td class="conf-num">8.</td>
-        <td class="conf-name">UA Undergraduate Research and Creative Activities Conference <span class="conf-type conf-type-poster">Poster</span></td>
-        <td class="conf-date">April 2025</td>
-      </tr>
-      <tr>
-        <td class="conf-num">7.</td>
-        <td class="conf-name">Capstone Scholars Day Research Presenter <span class="conf-type conf-type-oral">Oral</span></td>
-        <td class="conf-date">January 2025</td>
-      </tr>
-      <tr>
-        <td class="conf-num">6.</td>
-        <td class="conf-name">UA Undergraduate Research and Creative Activities Conference <span class="conf-type conf-type-poster">Poster</span></td>
-        <td class="conf-date">March 2024</td>
-      </tr>
-      <tr>
-        <td class="conf-num">5.</td>
-        <td class="conf-name">Advances with Field Experiments @ UChicago <span class="conf-type conf-type-oral">Oral</span></td>
-        <td class="conf-date">September 2023</td>
-      </tr>
-      <tr>
-        <td class="conf-num">4.</td>
-        <td class="conf-name">Harvard Pre-Doctoral Student Research Seminar <span class="conf-type conf-type-oral">Oral</span></td>
-        <td class="conf-date">June 2023</td>
-      </tr>
-      <tr>
-        <td class="conf-num">3.</td>
-        <td class="conf-name">Stanford Research Conference <span class="conf-type conf-type-poster">Poster</span></td>
-        <td class="conf-date">April 2023</td>
-      </tr>
-      <tr>
-        <td class="conf-num">2.</td>
-        <td class="conf-name">UA Undergraduate Research and Creative Activities Conference <span class="conf-type conf-type-poster">Poster</span></td>
-        <td class="conf-date">April 2023</td>
-      </tr>
-      <tr>
-        <td class="conf-num">1.</td>
-        <td class="conf-name">Bengali Medical Association of North America <span class="conf-type conf-type-poster">1st Place · Poster</span></td>
-        <td class="conf-date">July 2022</td>
-      </tr>
-    </table>
-  </div>
-</section>
-
-<!-- ─── Awards ─── -->
-<section id="awards">
-  <div class="container fade-in">
-    <p class="section-label">Honors, Awards &amp; Funding</p>
-    <h2 class="section-title">Recognition.</h2>
-    <table class="awards-table">
-      <tr>
-        <td class="award-name">Most Outstanding Junior</td>
-        <td class="award-note">1 junior student university-wide</td>
-      </tr>
-      <tr>
-        <td class="award-name">Bayham Family Endowed Scholarship</td>
-        <td class="award-note">1 RRS Student</td>
-      </tr>
-      <tr>
-        <td class="award-name">Randall Outstanding Undergraduate Research Award</td>
-        <td class="award-note">20 students</td>
-      </tr>
-      <tr>
-        <td class="award-name">Economics Faculty Award</td>
-        <td class="award-note">Exceptional Juniors in Economics</td>
-      </tr>
-      <tr>
-        <td class="award-name">Joseph Edward Braswell Scholarship in Mathematics</td>
-        <td class="award-note">1 student in Math Dept</td>
-      </tr>
-      <tr>
-        <td class="award-name">Ernest F. Hollings Undergraduate Scholarship</td>
-        <td class="award-note">120 undergraduates across the U.S.</td>
-      </tr>
-      <tr>
-        <td class="award-name">Thomas W. Palmer Math Award</td>
-        <td class="award-note">2 Upperclassmen</td>
-      </tr>
-      <tr>
-        <td class="award-name">Randall Research Scholars Program — Rising Star Award</td>
-        <td class="award-note">1 Freshman</td>
-      </tr>
-      <tr>
-        <td class="award-name">University of Alabama National Merit Finalist Scholarship</td>
-        <td class="award-note">Full-Ride<span class="award-amount">$288,990</span></td>
-      </tr>
-      <tr>
-        <td class="award-name">JSHS Momentum Grant Award <span style="color:var(--text-dim);font-weight:400;">· June 2021</span></td>
-        <td class="award-note"><span class="award-amount">$1,807</span></td>
-      </tr>
-      <tr>
-        <td class="award-name">ISEF 2021 — 4th in Behavioral and Social Science (International)</td>
-        <td class="award-note"><span class="award-amount">$500</span></td>
-      </tr>
-      <tr>
-        <td class="award-name">MathWorks Math Modeling Challenge 2021 — Honorable Mention</td>
-        <td class="award-note"><span class="award-amount">$250</span></td>
-      </tr>
-      <tr>
-        <td class="award-name">Mississippi School for Mathematics and Science 2022 — Outstanding Senior Award</td>
-        <td class="award-note"></td>
-      </tr>
-      <tr>
-        <td class="award-name">Mississippi School for Mathematics and Science 2022 — Hall of Fame</td>
-        <td class="award-note"></td>
-      </tr>
-      <tr>
-        <td class="award-name">Mississippi School for Mathematics and Science 2022 — Departmental Award in Biology</td>
-        <td class="award-note"></td>
-      </tr>
-      <tr>
-        <td class="award-name">Mississippi School for Mathematics and Science 2022 — Departmental Award in Mathematics</td>
-        <td class="award-note"></td>
-      </tr>
-    </table>
-  </div>
-</section>
-
-<!-- ─── Contact ─── -->
-<section id="contact">
-  <div class="container fade-in">
-    <p class="section-label">Contact</p>
-    <h2 class="section-title">Let's connect.</h2>
-    <p class="section-sub">Interested in collaboration, research opportunities, or just want to say hello? I'd love to hear from you.</p>
-    <a href="mailto:raeed.kabir@gmail.com" class="contact-email">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      raeed.kabir@gmail.com
+    <a href="mailto:raeed.kabir@gmail.com" class="sb-cta">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Get in Touch
     </a>
-  </div>
-</section>
 
-<!-- ─── Footer ─── -->
-<footer>
-  <div class="container">
-    <p>© 2026 Raeed Kabir &nbsp;·&nbsp; University of Alabama &nbsp;·&nbsp; Built for GitHub Pages</p>
-  </div>
-</footer>
+    <div class="sb-contact">
+      <a href="mailto:raeed.kabir@gmail.com">raeed.kabir@gmail.com</a>
+    </div>
 
-<!-- ─── Scripts ─── -->
+    <div class="sb-footer">
+      © 2026 Raeed Kabir<br>Built for GitHub Pages
+    </div>
+
+  </aside>
+
+  <!-- ─── Main Content ─── -->
+  <main class="main-content">
+
+    <!-- About -->
+    <section id="about" class="fade-in">
+      <p class="section-label">About Me</p>
+      <h2 class="section-title">I believe in empathy-driven research questions.</h2>
+      <div class="about-grid">
+        <div>
+          <img
+            src="images/profile.jpg"
+            alt="Raeed Kabir"
+            class="about-photo"
+            id="profileImg"
+            onerror="this.style.display='none'; document.getElementById('photoPlaceholder').style.display='flex';"
+          />
+          <div class="photo-placeholder" id="photoPlaceholder" style="display:none;">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <span>Add profile.jpg</span>
+          </div>
+        </div>
+        <div class="about-bio">
+          <p>
+            I'm a 4th-year undergraduate at the <strong>University of Alabama</strong> pursuing degrees in Mathematics
+            and Economics on a pre-med track.
+          </p>
+          <p>
+            After completing my undergraduate degrees, I'll pursue an M.A. in Mathematics (2027) and a PhD in
+            Quantitative Economics (2028) at the University of Alabama. I plan to go on to medical school afterwards.
+          </p>
+          <div class="about-badges">
+            <span class="badge badge-blue">Behavioral Economics</span>
+            <span class="badge badge-green">Environmental Health</span>
+            <span class="badge badge-purple">AI in Healthcare</span>
+            <span class="badge badge-gold">Public Economics</span>
+            <span class="badge badge-blue">Causal Inference</span>
+            <span class="badge badge-green">Pre-Med</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Research Interests -->
+    <section id="research" class="fade-in">
+      <p class="section-label">Research Interests</p>
+      <h2 class="section-title">Questions I'm asking.</h2>
+      <p class="section-sub">My work sits at the intersection of behavioral and experimental economics.</p>
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-icon">🧪</div>
+          <h3>Behavioral &amp; Experimental Economics</h3>
+          <p>Lab, field, and survey experiments.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🌱</div>
+          <h3>Environmental Health Economics</h3>
+          <p>Causal estimation of how environmental exposures affect health and economic outcomes.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🤖</div>
+          <h3>AI in Healthcare</h3>
+          <p>Evaluating and deploying expert AI systems for clinical decision support, disease prognosis, and diagnostics in resource-limited settings.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📊</div>
+          <h3>Public &amp; Health Economics</h3>
+          <p>Estimating deep structural parameters to understand individual-level policy support.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Publications -->
+    <section id="publications" class="fade-in">
+      <p class="section-label">Publications &amp; Working Papers</p>
+      <h2 class="section-title">Research output.</h2>
+      <p class="section-sub">Projects</p>
+
+      <div class="pub-group">
+        <div class="pub-group-title">Charitable Giving in the Face of Uncertainty</div>
+        <div class="pub-item">
+          <div class="pub-num">1</div>
+          <div>
+            <div class="pub-meta">Working paper with Michael Price and Tigran Melkonyan.</div>
+            <span class="pub-tag pub-tag-wip">Working Paper</span>
+            <div class="pub-presented"><strong>Presented at:</strong> Advances with Field Experiments, Harvard Economics Pre-Doc Seminar, University of Alabama Brown Bag, University of Alabama Capstone Scholars Day.</div>
+          </div>
+        </div>
+        <div class="pub-item">
+          <div class="pub-num">2</div>
+          <div>
+            <div class="pub-meta">Experimental paper in progress with Michael Price and Tigran Melkonyan.</div>
+            <span class="pub-tag pub-tag-wip">In Progress</span>
+            <div class="pub-presented"><strong>Presented at:</strong> UChicago Brown Bag, Yale Undergraduate Research Conference.</div>
+          </div>
+        </div>
+        <div class="pub-item">
+          <div class="pub-num">4</div>
+          <div>
+            <div class="pub-meta">Work in progress with Michael Price, Tigran Melkonyan, and Faisal Kattan.</div>
+            <span class="pub-tag pub-tag-wip">In Progress</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-group">
+        <div class="pub-group-title">Environmental Exposure on Health</div>
+        <div class="pub-item">
+          <div class="pub-num">1</div>
+          <div>
+            <div class="pub-meta">Work in progress with Michael Price and Emmanuel Tsyawo.</div>
+            <span class="pub-tag pub-tag-wip">In Progress</span>
+            <div class="pub-presented"><strong>Presented at:</strong> NOAA Symposium.</div>
+          </div>
+        </div>
+        <div class="pub-item">
+          <div class="pub-num">2</div>
+          <div>
+            <div class="pub-meta">Several works in progress with Piper Larkin.</div>
+            <span class="pub-tag pub-tag-wip">In Progress</span>
+            <div class="pub-presented"><strong>Presented at:</strong> REGARDS Built Environment Working Group Meeting.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-group">
+        <div class="pub-group-title">Public Economics</div>
+        <div class="pub-item">
+          <div class="pub-num">1</div>
+          <div>
+            <div class="pub-meta">Work in progress with Reshmaan Hussam.</div>
+            <span class="pub-tag pub-tag-wip">In Progress</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-group">
+        <div class="pub-group-title">Experimental Economics</div>
+        <div class="pub-item">
+          <div class="pub-num">1</div>
+          <div>
+            <div class="pub-meta">Work in progress with John List.</div>
+            <span class="pub-tag pub-tag-wip">In Progress</span>
+            <div class="pub-presented"><strong>Presented at:</strong> Advances with Field Experiments, University of Alabama Brown Bag.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-group">
+        <div class="pub-group-title">AI in Health</div>
+        <div class="pub-item">
+          <div class="pub-num">1</div>
+          <div>
+            <div class="pub-title">In Pursuit of an Expert Artificial Intelligence System: Reproducing Human Physicians Diagnostic Reasoning and Triage Decision Making</div>
+            <div class="pub-meta">Kabir, Azad, <strong>Raeed Kabir</strong>, Jebun Nahar. 2024.</div>
+            <div class="pub-journal">Journal of Artificial Intelligence and Soft Computing Techniques, 1: 1–14.</div>
+          </div>
+        </div>
+        <div class="pub-item">
+          <div class="pub-num">2</div>
+          <div>
+            <div class="pub-meta">Submitted paper with Michael Williams, Jay Sanders, Tariq Nakhooda, and Mahmoud Zaher.</div>
+            <span class="pub-tag pub-tag-submitted">Submitted</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-group">
+        <div class="pub-group-title">Clinical Studies</div>
+        <div class="pub-item">
+          <div class="pub-num">1</div>
+          <div>
+            <div class="pub-title">D-Dimer trends predict COVID-19 patient's prognosis: A retrospective chart review study</div>
+            <div class="pub-meta"><strong>Kabir, Raeed</strong>, Iyana Malik, Reena Chen, Jebun Nahar, Eagle Chen, Sheikh M. Hoq, and Azad Kabir. 2023.</div>
+            <div class="pub-journal">Open Medicine, 18(1).</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="fade-in">
+      <p class="section-label">Work Experience</p>
+      <h2 class="section-title">Where I've worked.</h2>
+      <p class="section-sub">Research positions at leading universities and federal agencies.</p>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-date">05/2025 – 08/2025</div>
+          <div class="tl-title">Research Intern — Low Earth Orbit Group</div>
+          <div class="tl-subtitle">National Oceanic and Atmospheric Administration · Greenbelt, MD</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-date">08/2022 – Present</div>
+          <div class="tl-title">Research Assistant to Prof. Michael K. Price</div>
+          <div class="tl-subtitle">University of Alabama, Culverhouse College of Business · Tuscaloosa, AL</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-date">08/2020 – Present</div>
+          <div class="tl-title">Research Assistant to Prof. Reshmaan Hussam</div>
+          <div class="tl-subtitle">Harvard Business School, BGIE Unit · Cambridge, MA</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-date">Summer 2024</div>
+          <div class="tl-title">Returning Research Assistant — Projects in Saudi Public Policy</div>
+          <div class="tl-subtitle">University of Chicago, Becker Friedman Institute · Chicago, IL</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-date">Summer 2023</div>
+          <div class="tl-title">Research Assistant to Prof. Benjamin Enke</div>
+          <div class="tl-subtitle">Harvard University · Cambridge, MA</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-date">Summer 2022</div>
+          <div class="tl-title">Research Assistant to Prof. John List</div>
+          <div class="tl-subtitle">University of Chicago, Becker Friedman Institute · Chicago, IL</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education" class="fade-in">
+      <p class="section-label">Education</p>
+      <h2 class="section-title">Academic path.</h2>
+      <div class="edu-grid">
+        <div class="edu-card current">
+          <div class="edu-year">2022 – 2026 &nbsp;·&nbsp; <span style="color:var(--green);font-weight:500;">Current</span></div>
+          <div class="edu-degree">B.S. Mathematics &amp; Economics</div>
+          <div class="edu-field">Pre-Med Track · Double Major</div>
+          <div class="edu-institution">University of Alabama</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-year">Expected 2027</div>
+          <div class="edu-degree">M.A. Mathematics</div>
+          <div class="edu-field">Graduate Study</div>
+          <div class="edu-institution">University of Alabama</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-year">Expected 2028</div>
+          <div class="edu-degree">PhD Quantitative Economics</div>
+          <div class="edu-field">Doctoral Study</div>
+          <div class="edu-institution">University of Alabama, Mentored by Dr. Michael K. Price</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Conferences -->
+    <section id="conferences" class="fade-in">
+      <p class="section-label">Conference Activity &amp; Presentations</p>
+      <h2 class="section-title">Where I've presented.</h2>
+      <table class="conf-table">
+        <tr><td class="conf-num">13.</td><td class="conf-name">Advances with Field Experiments @ UChicago <span class="conf-type conf-type-oral">Oral</span></td><td class="conf-date">September 2025</td></tr>
+        <tr><td class="conf-num">12.</td><td class="conf-name">Brown Bag @ UA <span class="conf-type conf-type-oral">Oral</span></td><td class="conf-date">September 2025</td></tr>
+        <tr><td class="conf-num">11.</td><td class="conf-name">Brown Bag Lunch Talk @ UChicago <span class="conf-type conf-type-oral">Oral</span></td><td class="conf-date">August 2025</td></tr>
+        <tr><td class="conf-num">10.</td><td class="conf-name">NOAA Hollings Symposium Presentation <span class="conf-type conf-type-oral">Oral</span></td><td class="conf-date">July 2025</td></tr>
+        <tr><td class="conf-num">9.</td><td class="conf-name">Yale Undergraduate Research Conference <span class="conf-type conf-type-poster">3rd Place · Social Science Poster</span></td><td class="conf-date">April 2025</td></tr>
+        <tr><td class="conf-num">8.</td><td class="conf-name">UA Undergraduate Research and Creative Activities Conference <span class="conf-type conf-type-poster">Poster</span></td><td class="conf-date">April 2025</td></tr>
+        <tr><td class="conf-num">7.</td><td class="conf-name">Capstone Scholars Day Research Presenter <span class="conf-type conf-type-oral">Oral</span></td><td class="conf-date">January 2025</td></tr>
+        <tr><td class="conf-num">6.</td><td class="conf-name">UA Undergraduate Research and Creative Activities Conference <span class="conf-type conf-type-poster">Poster</span></td><td class="conf-date">March 2024</td></tr>
+        <tr><td class="conf-num">5.</td><td class="conf-name">Advances with Field Experiments @ UChicago <span class="conf-type conf-type-oral">Oral</span></td><td class="conf-date">September 2023</td></tr>
+        <tr><td class="conf-num">4.</td><td class="conf-name">Harvard Pre-Doctoral Student Research Seminar <span class="conf-type conf-type-oral">Oral</span></td><td class="conf-date">June 2023</td></tr>
+        <tr><td class="conf-num">3.</td><td class="conf-name">Stanford Research Conference <span class="conf-type conf-type-poster">Poster</span></td><td class="conf-date">April 2023</td></tr>
+        <tr><td class="conf-num">2.</td><td class="conf-name">UA Undergraduate Research and Creative Activities Conference <span class="conf-type conf-type-poster">Poster</span></td><td class="conf-date">April 2023</td></tr>
+        <tr><td class="conf-num">1.</td><td class="conf-name">Bengali Medical Association of North America <span class="conf-type conf-type-poster">1st Place · Poster</span></td><td class="conf-date">July 2022</td></tr>
+      </table>
+    </section>
+
+    <!-- Awards -->
+    <section id="awards" class="fade-in">
+      <p class="section-label">Honors, Awards &amp; Funding</p>
+      <h2 class="section-title">Recognition.</h2>
+      <table class="awards-table">
+        <tr><td class="award-name">Most Outstanding Junior</td><td class="award-note">1 junior student university-wide</td></tr>
+        <tr><td class="award-name">Bayham Family Endowed Scholarship</td><td class="award-note">1 RRS Student</td></tr>
+        <tr><td class="award-name">Randall Outstanding Undergraduate Research Award</td><td class="award-note">20 students</td></tr>
+        <tr><td class="award-name">Economics Faculty Award</td><td class="award-note">Exceptional Juniors in Economics</td></tr>
+        <tr><td class="award-name">Joseph Edward Braswell Scholarship in Mathematics</td><td class="award-note">1 student in Math Dept</td></tr>
+        <tr><td class="award-name">Ernest F. Hollings Undergraduate Scholarship</td><td class="award-note">120 undergraduates across the U.S.</td></tr>
+        <tr><td class="award-name">Thomas W. Palmer Math Award</td><td class="award-note">2 Upperclassmen</td></tr>
+        <tr><td class="award-name">Randall Research Scholars Program — Rising Star Award</td><td class="award-note">1 Freshman</td></tr>
+        <tr><td class="award-name">University of Alabama National Merit Finalist Scholarship</td><td class="award-note">Full-Ride<span class="award-amount">$288,990</span></td></tr>
+        <tr><td class="award-name">JSHS Momentum Grant Award <span style="color:var(--text-dim);">· June 2021</span></td><td class="award-note"><span class="award-amount">$1,807</span></td></tr>
+        <tr><td class="award-name">ISEF 2021 — 4th in Behavioral and Social Science (International)</td><td class="award-note"><span class="award-amount">$500</span></td></tr>
+        <tr><td class="award-name">MathWorks Math Modeling Challenge 2021 — Honorable Mention</td><td class="award-note"><span class="award-amount">$250</span></td></tr>
+        <tr><td class="award-name">Mississippi School for Mathematics and Science 2022 — Outstanding Senior Award</td><td class="award-note"></td></tr>
+        <tr><td class="award-name">Mississippi School for Mathematics and Science 2022 — Hall of Fame</td><td class="award-note"></td></tr>
+        <tr><td class="award-name">Mississippi School for Mathematics and Science 2022 — Departmental Award in Biology</td><td class="award-note"></td></tr>
+        <tr><td class="award-name">Mississippi School for Mathematics and Science 2022 — Departmental Award in Mathematics</td><td class="award-note"></td></tr>
+      </table>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="fade-in">
+      <p class="section-label">Contact</p>
+      <h2 class="section-title">Let's connect.</h2>
+      <p class="section-sub">Interested in collaboration, research opportunities, or just want to say hello? I'd love to hear from you.</p>
+      <a href="mailto:raeed.kabir@gmail.com" class="contact-email">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        raeed.kabir@gmail.com
+      </a>
+    </section>
+
+  </main>
+</div>
+
 <script>
   // ── Scroll progress bar ──
   const progressBar = document.getElementById('progress');
@@ -944,22 +822,6 @@
     progressBar.style.width = (scrolled / total * 100) + '%';
   }, { passive: true });
 
-  // ── Navbar scroll effect ──
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 10);
-  }, { passive: true });
-
-  // ── Mobile nav toggle ──
-  document.getElementById('navToggle').addEventListener('click', () => {
-    document.getElementById('navLinks').classList.toggle('open');
-  });
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-      document.getElementById('navLinks').classList.remove('open');
-    });
-  });
-
   // ── Fade-in on scroll ──
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -968,18 +830,32 @@
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1 });
-
+  }, { threshold: 0.08 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
   // ── Stagger card animations ──
-  document.querySelectorAll('.cards-grid .card, .edu-grid .edu-card, .awards-row .award-pill').forEach((el, i) => {
+  document.querySelectorAll('.cards-grid .card, .edu-grid .edu-card').forEach((el, i) => {
     el.style.transitionDelay = (i * 80) + 'ms';
     el.classList.add('fade-in');
     observer.observe(el);
   });
 
-  // ── Show photo placeholder if image fails ──
+  // ── Active nav link highlight ──
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.sb-nav a');
+  const onScroll = () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // ── Photo fallback ──
   const img = document.getElementById('profileImg');
   if (img && img.complete && img.naturalWidth === 0) {
     img.style.display = 'none';
